@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  airpool:
+    image: airpool
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+      DOMAIN: https://airpool.swarthmore.edu/
+    ports:
+      - 3000:3000

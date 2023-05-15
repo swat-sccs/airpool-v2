@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  airpool:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - .:/usr/src/app
+    environment:
+      NODE_ENV: development
+      DOMAIN: http://127.0.0.1:3000/
+    ports:
+      - 3000:3000
+      - 9229:9229
+      - 5555:5555
+    command: /bin/sh -c "npm install --silent && npm run dev"
+
+  db:
+    image: mariadb:10.7
+    #volumes:
+      #- ./mock_sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=S3cret
+      - MYSQL_PASSWORD=An0thrS3crt
+      - MYSQL_USER=citizix_user
+      - MYSQL_DATABASE=citizix_db
