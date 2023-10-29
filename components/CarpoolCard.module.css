@@ -1,0 +1,59 @@
+.regular-text{
+    font-size: 20px;
+    color: #000000;
+}
+
+.small-text{
+    font-size: 15px;
+    color: #464444;
+}
+
+.mini-icon{
+    font-size: 12px;
+    color: #000000;
+    background-color: #D1D1D1;
+    text-align: center;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+
+@screen md{
+    .regular-text{
+        font-size: 30px;
+    }
+    .small-text{
+        font-size: 20px;
+    }
+    .mini-icon{
+        font-size: 14px;
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-right: 10px;
+    }
+}
+
+@screen lg{
+    .regular-text{
+        font-size: 35px;
+    }
+    .small-text{
+        font-size: 24px;
+    }
+    .mini-icon{
+        font-size: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-right: 10px;
+    }
+}
+
+@screen xl{
+    .regular-text{
+        font-size: 40px;
+    }
+    .small-text{
+        font-size: 28px;
+    }
+}
