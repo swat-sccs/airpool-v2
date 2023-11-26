@@ -13,6 +13,9 @@ module.exports = {
       "lg": "1024px",
       'xl': '1280px',
     },
+    lineHeight:{
+      DEFAULT: "1",
+    },
     borderRadius:{
       DEFAULT: "15px",
     },
@@ -25,7 +28,7 @@ module.exports = {
         },
         colors: {
             primary: "#31425f",
-            "page-bg": "#d1d1d1",
+            "page-bg": "#b2d6ff",
             "card-bg": "#f1f1f1",
             accent: "#f46523",
             "alt-blue": "#364a6d",

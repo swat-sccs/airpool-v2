@@ -11,14 +11,14 @@ export default function PoolCardGrouping(props: any){
     const contents = props.contents || [];
 
     return (
-        <div className="text-center gap-4">
+        <div className="text-center gap-4 mx-auto my-[1rem]">
             <span className="text-[35px] md:text-[42px] lg:text-[60px]">
                 {props.header}
             </span>
-            <div className="flex flex-row gap-[1.5vw] content-center">
+            <div className="flex flex-row gap-[1.5vw] content-center mt-[20px]">
                 {
                     contents.map(function(content: any){
-                        return <SCCSBox content={content}/>;
+                        return <SCCSBox heightWidthClasses="w-[93px] md:w-[140px] lg:w-[149px] h-[60px] md:h-[84px] lg:h-[97px]" contents={content}/>;
                     })
                 }
             </div>

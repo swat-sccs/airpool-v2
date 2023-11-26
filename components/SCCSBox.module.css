@@ -1,21 +1,17 @@
 
 .CardBorder {
-  border-radius: 15px;
   filter: drop-shadow(2px 6px 10px #00000044);
   padding: 9px 10px 9px 10px;
 }
 
 .Card {
-  font-family: var(--font-base);
   font-size: 20px;
-  text-align: center;
-  border-radius: 15px;
-  padding: 1rem;
+  padding: 1.2rem;
 }
 
 @screen md {
   .CardBorder{
-    padding: 20px 24px 20px 24px;
+    padding: 10px 12px 10px 12px;
   }
   .Card{
     font-size: 30px;
@@ -24,7 +20,7 @@
 
 @screen lg {
   .CardBorder{
-    padding: 48px 32px 48px 32px;
+    padding: 12px 16px 12px 16px;
   }
   .Card{
     font-size: 40px;

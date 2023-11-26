@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={raleway.variable}>
-      <body>{children}</body>
+    <html className={raleway.variable}>
+      <body className="leading bg-page-bg">{children}</body>
     </html>
   )
 }
