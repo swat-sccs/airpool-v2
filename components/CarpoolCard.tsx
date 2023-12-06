@@ -1,9 +1,9 @@
 import styles from "./CarpoolCard.module.css"
 
 // TODO: Make it look good on mobile (breakpoints!)
- // Just realized all the elements inside this component have a common baseline in the Figma. We could implement that if we want.
+// Just realized all the elements inside this component have a common baseline in the Figma. We could implement that if we want.
 
-const paymentMethodInitials = {
+const paymentMethodSymbols = {
     "Cash": "$",
     "Venmo": "V",
     "Zelle": "Z",
@@ -38,10 +38,10 @@ export default function CarpoolCard (props: any){
     const paymentMethods = props.paymentMethods || [];
     const paymentMethodsDiv = (
         <div className="flex flex-row">
-            {Object.entries(paymentMethodInitials).map(function(entry){
-                const [method, initial] = entry;
-                if (props.paymentMethods.includes(method)){
-                    return <div className={styles["mini-icon"]}> {initial} </div>
+            {Object.entries(paymentMethodSymbols).map(function(entry){
+                const [method, symbol] = entry;
+                if (paymentMethods.includes(method)){
+                    return <div className={styles["mini-icon"]}> {symbol} </div>
                 }
             })}
         </div>
@@ -85,17 +85,19 @@ export default function CarpoolCard (props: any){
 
     // Final Return
     return(
-        <div className="flex flex-row justify-between items-center bg-card-bg w-11/12 h-[81px] md:h-[100px] lg:h-[137px] rounded drop-shadow pl-[5vw] pr-[4vw] md:pr-[6vw] lx:pr-[11vw]">
-            <div className="flex flex-row items-center">
+        <div className="grid-container grid grid-cols-12 sm:grid-cols-11 items-center bg-card-bg w-11/12 h-[81px] md:h-[100px] lg:h-[137px] rounded drop-shadow pl-[5vw] pr-[4vw] md:pr-[6vw] lx:pr-[11vw]">
+            <div className="col-span-6 sm:col-span-5 flex flex-row items-center">
                 <div className="mr-[10px] md:mr-[42px]">
                     {dotDiv}
                 </div>
                 {mainInfoDiv}
             </div>
-            <div className="md:pl-[3vw] lg:pl-[4vw] xl:pl-[6vw]">
+            <div className="col-span-2 sm:col-span-3">
                 {seatCountDiv}
             </div>
-            {timeDiv}
+            <div className="col-span-4 sm:col-span-3">
+                {timeDiv}
+            </div>
         </div>
     );
 }

@@ -1,3 +1,4 @@
+'use client'
 import styles from "./SCCSFooter.module.css"
 
 export default function SCCSFooter(){

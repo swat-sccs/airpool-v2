@@ -1,6 +1,8 @@
+import SCCSHeader from '@/components/SCCSHeader'
 import './globals.css'
 
 import { Raleway } from 'next/font/google'
+import SCCSFooter from '@/components/SCCSFooter'
 
 const raleway = Raleway({
   subsets: ['latin'],
@@ -20,7 +22,13 @@ export default function RootLayout({
 }) {
   return (
     <html className={raleway.variable}>
-      <body className="leading bg-page-bg">{children}</body>
+      <body className="leading bg-page-bg">
+        <main>
+          <SCCSHeader />
+          {children}
+        </main>
+        <SCCSFooter />
+      </body>
     </html>
   )
 }
