@@ -13,7 +13,7 @@ export default function Home() {
         <div className="text-[24px] md:text-[30px] mt-[3px] ml-[208px] md:ml-[342px] mb-[10px]">by SCCS</div>
       </div>
 
-      <div className='mt-[16px'>
+      <div className='mt-[16px]'>
         <SCCSBox heightWidthClasses="w-[317px] md:w-[532px]" contents={["Join a Pool", "Create a Pool"]} />
       </div>
 
