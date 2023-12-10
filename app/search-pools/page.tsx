@@ -57,7 +57,7 @@ const poolData = [
     },
 ]
 
-const displayTypes = ["horizontal", "box"]
+const displayTypes = ["list", "grid"]
 
 export default function Pools(){
 

@@ -18,7 +18,7 @@ const DOT_ORANGE = "bg-[#F46523]"
 How props will work is subject to change as we flesh out how data is stored in the backend.
 All of this is placeholder 
 
-displayType (string: "horizontal" or "box"): Controls how card is displayed in UI.
+displayType (string: "list" or "grid"): Controls how card is displayed in UI.
 isDotBlue (bool): True if the dot on the left of the card is blue, false if it's orange
 destination (string): The name of the location to which the carpool will arrive
 vehicleType (string): The name of the type of vehicle or transportation service to be used
@@ -36,7 +36,7 @@ export default function CarpoolCard (props: any){
     const dotColor = props.isDotBlue ? DOT_BLUE : DOT_ORANGE;
     const dotClassHoriztonal = `w-[13px] h-[13px] md:w-[25px] md:h-[25px] lg:w-[40px] lg:h-[40px]`;
     const dotClassBox = 'w-[10px] h-[10px] lg:w-[20px] lg:h-[20px]'
-    const dotDiv = (<div className={`rounded-[50%] ${dotColor} ${props.displayType == "horizontal" ? dotClassHoriztonal: dotClassBox}`}></div>);
+    const dotDiv = (<div className={`rounded-[50%] ${dotColor} ${props.displayType == "list" ? dotClassHoriztonal: dotClassBox}`}></div>);
 
     // Payment Method Div
     const paymentMethods = props.paymentMethods || [];
@@ -55,7 +55,7 @@ export default function CarpoolCard (props: any){
     const seatCountDiv = (
         <div className={styles["small-text"] + " text-center"}>
             {props.seatCount}
-            {props.displayType == "horizontal" ? <br /> : " "}
+            {props.displayType == "list" ? <br /> : " "}
             {props.seatCount == 1 ? "seat" : "seats"}
         </div>
     );
@@ -76,7 +76,7 @@ export default function CarpoolCard (props: any){
 
     // Date-Time Div
     const dateTimeDiv = (
-        <div className={`flex flex-col ${props.displayType == "horizontal" ? "text-center": "text-left"}`}>
+        <div className={`flex flex-col ${props.displayType == "list" ? "text-center": "text-left"}`}>
             <div className={styles["regular-text"]}>
                 {props.time}
             </div>
@@ -95,7 +95,7 @@ export default function CarpoolCard (props: any){
 
     // Make Carpool Card + Final Return
     let carpoolCard;
-    if (props.displayType == "horizontal") {
+    if (props.displayType == "list") {
         // Main Info Div - Destination, Vehicle Type/Service, Payment Methods OR Seat Count
         const mainInfoDiv = (
             <div className="text-left">
@@ -122,7 +122,7 @@ export default function CarpoolCard (props: any){
             </div>
         );
     }
-    else if (props.displayType == "box"){
+    else if (props.displayType == "grid"){
         // This needs to be wrapped in div or else everything breaks
         const desinationDivWithDot = (
             <div className="flex flex-row items-center">
