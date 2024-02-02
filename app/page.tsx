@@ -2,9 +2,22 @@ import SCCSBox from '@/components/SCCSBox'
 import SCCSFooter from '@/components/SCCSFooter'
 import PoolCardGrouping from '@/components/PoolCardGrouping'
 import SCCSHeader from '@/components/SCCSHeader'
+import Link from 'next/link'
+
+
 
 
 export default function Home() {
+
+  const mainButtonsWidthClass = "w-[317px] md:w-[532px]"
+
+  const joinPoolButton = (
+    <Link href="/search-pools">
+      <button className={mainButtonsWidthClass}>
+        Join a Pool
+      </button>
+    </Link>
+  )
 
   return (
     <>
@@ -14,7 +27,7 @@ export default function Home() {
       </div>
 
       <div className='mt-[16px]'>
-        <SCCSBox heightWidthClasses="w-[317px] md:w-[532px]" contents={["Join a Pool", "Create a Pool"]} />
+        <SCCSBox heightWidthClasses={mainButtonsWidthClass} contents={[joinPoolButton, "Create a Pool"]} />
       </div>
 
       <div className="flex flex-row flex-wrap justify-between mt-[9vh] gap-[30px] md:gap-[40px] lg:gap-[70px] mb-[32px]">

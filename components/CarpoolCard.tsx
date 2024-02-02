@@ -29,7 +29,7 @@ time (string): A string of the time of day the carpool will occur
 date (string): A string of the date the carpool will occur
 */
 export default function CarpoolCard (props: any){ 
-    /* Breaks up the card into smaller components, andthen assemble them into the full 
+    /* Breaks up the card into smaller components, and then assemble them into the full 
     card based on the display type */
 
     // Icon Dot
@@ -41,7 +41,7 @@ export default function CarpoolCard (props: any){
     // Payment Method Div
     const paymentMethods = props.paymentMethods || [];
     const paymentMethodsDiv = (
-        <div className={`flex flex-row ${props.displayType == "box" ? "justify-center" : ""}`}>
+        <div className={`flex flex-row ${props.displayType == "grid" ? "justify-center" : ""}`}>
             {Object.entries(paymentMethodSymbols).map(function(entry){
                 const [method, symbol] = entry;
                 if (paymentMethods.includes(method)){
@@ -141,7 +141,6 @@ export default function CarpoolCard (props: any){
                         {vehicleTypeDiv} {seatCountDiv}
                     </div>
                     {isRoundTripDiv}
-                    {dateTimeDiv}
                 </div>
                 <div className="mt-[15px] md:mt-[30px] lg:mt-[40px]">
                     {paymentMethodsDiv}
