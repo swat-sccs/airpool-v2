@@ -5,6 +5,7 @@ import styles from "./SCCSBox.module.css"
 
 /*
 content (string or ReactComponent) - Content to appear inside div
+extraClasses (string) - Extra CSS/Tailwind classes to add to content
 */
 export default function SCCSBox(props: any){
 
@@ -18,7 +19,7 @@ export default function SCCSBox(props: any){
             <div className="flex flex-col gap-[12px]"> {
                 contents.map(function(content: any){
                     return (
-                        <div className={styles.Card + " bg-card-bg flex items-center justify-center text-center rounded " + props.heightWidthClasses}>
+                        <div className={styles.Card + " bg-card-bg flex items-center justify-center text-center rounded " + props.extraClasses}>
                             <div>
                                 {content || "No content specified"}
                             </div>

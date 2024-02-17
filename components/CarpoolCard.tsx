@@ -107,8 +107,10 @@ export default function CarpoolCard (props: any){
             </div>
         );
 
+        const layoutClass = "grid-container grid grid-cols-12 sm:grid-cols-11 md:h-[100px] lg:h-[137px]";
+
         carpoolCard = (
-            <div className="grid-container grid grid-cols-12 sm:grid-cols-11 items-center bg-card-bg w-11/12 h-[81px] md:h-[100px] lg:h-[137px] rounded drop-shadow pl-[5vw] pr-[4vw] md:pr-[6vw] lx:pr-[11vw]">
+            <div className={layoutClass + " items-center bg-card-bg w-11/12 h-[81px] rounded drop-shadow pl-[5vw] pr-[4vw] md:pr-[6vw] lx:pr-[11vw] transition duration-[0.2s] scale-100 hover:scale-[1.01]"}>
                 <div className="col-span-6 sm:col-span-5 flex flex-row items-center">
                     <div className="mr-[10px] md:mr-[42px]"> {dotDiv} </div>
                     {mainInfoDiv}
@@ -147,7 +149,7 @@ export default function CarpoolCard (props: any){
                 </div>
             </div>
         );
-        carpoolCard = <SCCSBox contents={carpoolCardContents} heightWidthClasses="w-[150px] h-[180px] md:w-[256px] md:h-[264px] lg:w-[357px] lg:h-[365px]" />
+        carpoolCard = <SCCSBox contents={carpoolCardContents} extraClasses="w-[150px] h-[180px] md:w-[256px] md:h-[264px] lg:w-[357px] lg:h-[365px] transition duration-[0.2s] scale-100 hover:scale-[1.01]" />
     }
     else {
         carpoolCard = <SCCSBox contents={"Error"} />

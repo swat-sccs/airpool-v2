@@ -4,20 +4,17 @@ import PoolCardGrouping from '@/components/PoolCardGrouping'
 import SCCSHeader from '@/components/SCCSHeader'
 import Link from 'next/link'
 
-
-
-
 export default function Home() {
 
-  const mainButtonsWidthClass = "w-[317px] md:w-[532px]"
+  const mainButtonsClass = "w-[317px] md:w-[532px] transition duration-[0.2s] scale-100 hover:scale-[1.01]";
 
   const joinPoolButton = (
     <Link href="/search-pools">
-      <button className={mainButtonsWidthClass}>
+      <button className={mainButtonsClass}>
         Join a Pool
       </button>
     </Link>
-  )
+  );
 
   return (
     <>
@@ -27,7 +24,7 @@ export default function Home() {
       </div>
 
       <div className='mt-[16px]'>
-        <SCCSBox heightWidthClasses={mainButtonsWidthClass} contents={[joinPoolButton, "Create a Pool"]} />
+        <SCCSBox extraClasses={mainButtonsClass} contents={[joinPoolButton, "Create a Pool"]} />
       </div>
 
       <div className="flex flex-row flex-wrap justify-between mt-[9vh] gap-[30px] md:gap-[40px] lg:gap-[70px] mb-[32px]">

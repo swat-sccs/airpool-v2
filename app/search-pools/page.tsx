@@ -71,7 +71,7 @@ export default function Pools(){
         <>
             <button onClick={toggleDisplayType}>Toggle Display Type</button>
             <div className="mt-[25px]">
-                <SCCSBox heightWidthClasses="w-[88vw]" contents={"Search Pools"} />
+                <SCCSBox extraClasses="w-[88vw]" contents={"Search Pools"} />
             </div>
             
             <div className={`flex flex-wrap items-center ${displayTypeIndex == 0 ? "flex-col" : "flex-row gap-[80px]"} mt-[40px]`}>
