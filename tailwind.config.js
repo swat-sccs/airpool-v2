@@ -12,6 +12,7 @@ module.exports = {
       "md": "768px",
       "lg": "1024px",
       'xl': '1280px',
+      'xxl': '1440px',
     },
     lineHeight:{
       DEFAULT: "1",
@@ -27,7 +28,7 @@ module.exports = {
         primary: "#31425f",
         "page-bg": "#b2d6ff",
         "card-bg": "#f1f1f1",
-        accent: "#f46523",
+        "accent": "#e1e1e1",
         "alt-blue": "#364a6d",
       },
       fontFamily: {
