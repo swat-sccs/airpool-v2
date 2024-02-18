@@ -1,5 +1,4 @@
 version: '3.4'
-
 services:
   airpool:
     build:
@@ -10,16 +9,16 @@ services:
     environment:
       NODE_ENV: development
       DOMAIN: http://127.0.0.1:3000/
+      DATABASE_URL: mysql://citizix_user:An0thrS3crt@db:3306/citizix_db
     ports:
       - 3000:3000
       - 9229:9229
       - 5555:5555
-    command: /bin/sh -c "npm install --silent && npm run dev"
-
+    command: /bin/sh -c "npm install --silent && npx prisma db push && npx prisma generate && npm run dev"
   db:
     image: mariadb:10.7
-    #volumes:
-      #- ./mock_sql:/docker-entrypoint-initdb.d
+    # volumes:
+    #   - ./mock_sql:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
     environment:
