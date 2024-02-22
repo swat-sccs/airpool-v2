@@ -13,7 +13,7 @@ services:
       DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}
     ports:
       - "${INTERNAL_PORT}:3000"
-    command: sh -c "npm run build && sleep 10 && npx prisma db push && npm start "
+    command: sh -c "npm run build && timeout 22 sh -c 'until nc -z $0 $1; do sleep 1; done' db 3306 && npx prisma migrate deploy && npm start "
 
   db:
     image: mariadb:10.7

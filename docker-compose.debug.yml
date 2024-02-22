@@ -9,20 +9,18 @@ services:
     environment:
       NODE_ENV: development
       DOMAIN: http://127.0.0.1:3000/
-      DATABASE_URL: mysql://citizix_user:An0thrS3crt@db:3306/citizix_db
+      DATABASE_URL: mysql://root:S3cret@db:3306/airpool_db
     ports:
       - 3000:3000
       - 9229:9229
       - 5555:5555
-    command: /bin/sh -c "npm install --silent && sleep 10 && npx prisma generate && npx prisma db push && npm run dev"
+    command: /bin/sh -c "npm install --silent && timeout 22 sh -c 'until nc -z $0 $1; do sleep 1; done' db 3306 && npx prisma generate && npx prisma migrate dev --name init && npm run dev"
   db:
     image: mariadb:10.7
     ports:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=S3cret
-      - MYSQL_PASSWORD=An0thrS3crt
-      - MYSQL_USER=citizix_user
-      - MYSQL_DATABASE=citizix_db
+      - MYSQL_DATABASE=airpool_db
 
 
