@@ -1,4 +1,5 @@
 "use client"
+import CalendarView from "@/components/CalendarView'";
 import CarpoolCard from "@/components/CarpoolCard";
 import SCCSBox from "@/components/SCCSBox";
 import { useState } from "react";
@@ -57,7 +58,7 @@ const poolData = [
     },
 ]
 
-const displayTypes = ["list", "grid"]
+const displayTypes = ["list", "grid"];
 
 export default function Pools(){
 
@@ -71,9 +72,9 @@ export default function Pools(){
         <>
             <button onClick={toggleDisplayType}>Toggle Display Type</button>
             <div className="mt-[25px]">
-                <SCCSBox heightWidthClasses="w-[88vw]" contents={"Search Pools"} />
+                <SCCSBox extraClasses="w-[88vw]" contents={"Search Pools"} />
             </div>
-            
+                        
             <div className={`flex flex-wrap items-center ${displayTypeIndex == 0 ? "flex-col" : "flex-row gap-[80px]"} mt-[40px]`}>
             {
                 poolData.map(function(p){

@@ -18,7 +18,7 @@ export default function PoolCardGrouping(props: any){
             <div className="flex flex-row gap-[1.5vw] content-center mt-[20px]">
                 {
                     contents.map(function(content: any){
-                        return <SCCSBox heightWidthClasses="w-[93px] md:w-[140px] lg:w-[149px] h-[60px] md:h-[84px] lg:h-[97px]" contents={content}/>;
+                        return <SCCSBox extraClasses="w-[93px] md:w-[140px] lg:w-[149px] h-[60px] md:h-[84px] lg:h-[97px]" contents={content}/>;
                     })
                 }
             </div>
