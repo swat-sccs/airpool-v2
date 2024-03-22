@@ -26,14 +26,15 @@ export default function CalendarView(props: any){
                     return <div className="text-center md:text-[14px] lg:text-[18px] xl:text-[28px] mb-[4px]">{day}</div>
                 })
             }
+            {
                 Array.from(Array(42).keys()).map(function(i){
                     const dayOfWeekOfFirst = new Date(displayYear, month, 1).getDay();
-                    const daysInMonth = new Date(displayYear, month, 0).getDate();
+                    const daysInMonth = new Date(displayYear, month + 1, 0).getDate();
                     return <>
                         <div className="w-[13vw] md:w-[11.5vw] h-[84px] lg:h-[112px] xl:h-[132px] rounded bg-accent mb-[8px] flex flex-col justify-between">   
                             <div className="md:text-[16px] lg:text-[19px] xl:text-[22px] pt-[5px] pl-[7px]">
                                 {(i < dayOfWeekOfFirst) || (i - dayOfWeekOfFirst + 1 > daysInMonth)
-                                 ? "" : daysInMonth}
+                                 ? "" : i - dayOfWeekOfFirst + 1}
                             </div>
                             <div className="flex flex-col items-center gap-[5px] mb-[3px]">
                                 <div className={poolClass}>Philedelphia Airport</div>
