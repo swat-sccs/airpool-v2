@@ -58,7 +58,7 @@ const poolData = [
     },
 ]
 
-const displayTypes = ["list", "grid"]
+const displayTypes = ["list", "grid"];
 
 export default function Pools(){
 
@@ -74,7 +74,7 @@ export default function Pools(){
             <div className="mt-[25px]">
                 <SCCSBox extraClasses="w-[88vw]" contents={"Search Pools"} />
             </div>
-            
+                        
             <div className={`flex flex-wrap items-center ${displayTypeIndex == 0 ? "flex-col" : "flex-row gap-[80px]"} mt-[40px]`}>
             {
                 poolData.map(function(p){
