@@ -1,8 +1,8 @@
 import SCCSHeader from '@/components/SCCSHeader'
 import './globals.css'
-
 import { Raleway } from 'next/font/google'
 import SCCSFooter from '@/components/SCCSFooter'
+import { NextAuthProvider } from './NextAuthProvider';
 
 const raleway = Raleway({
   subsets: ['latin'],
@@ -21,14 +21,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <NextAuthProvider>
     <html className={raleway.variable}>
       <body className="leading bg-page-bg">
         <main>
-          <SCCSHeader />
+          <SCCSHeader/>
           {children}
         </main>
         <SCCSFooter />
       </body>
     </html>
+    </NextAuthProvider>
   )
 }
