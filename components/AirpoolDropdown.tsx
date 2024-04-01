@@ -12,7 +12,7 @@ export default function AirpoolDropdown(props: any){
                     })
                 }
             </select>
-            <div className="relative inline">
+            <div className="relative inline pointer-events-none">
                 <div className="absolute bg-[#B1B1B1] top-[-15px] left-[-45px] w-[38px] h-[38px] rounded">
                     <div className={styles.filter}>
                         <div className={styles.arrow + " absolute w-[28px] h-[28px] top-[9px] left-[5px]"} />
