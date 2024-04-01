@@ -14,7 +14,7 @@ services:
       - 3000:3000
       - 9229:9229
       - 5555:5555
-    command: /bin/sh -c "npm install --silent && timeout 22 sh -c 'until nc -z $0 $1; do sleep 1; done' db 3306 && npx prisma generate && npx prisma migrate dev --name init && npm run dev"
+    command: /bin/sh -c "npm install --silent && timeout 22 sh -c 'until nc -z $0 $1; do sleep 1; done' db 3306 && npx prisma generate &&  npm run dev"
   db:
     image: mariadb:10.7
     ports:
