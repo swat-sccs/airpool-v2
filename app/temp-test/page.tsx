@@ -4,6 +4,7 @@ import PoolCardGrouping from '@/components/PoolCardGrouping'
 import SCCSHeader from '@/components/SCCSHeader'
 import Link from 'next/link'
 import CalendarView from '@/components/CalendarView\''
+import AirpoolDropdown from '@/components/AirpoolDropdown'
 
 export default function Home() {
 
@@ -20,7 +21,9 @@ export default function Home() {
   return (
     <>
         <div className='mt-[10px]'>
-            <CalendarView />
+            <AirpoolDropdown id={"test"} 
+            options={[["Swarthmore", "swarthmore"], ["Bryn Mawr", "bryn-mawr"], ["Haverford", "haverford"], ["Custom", "custom"]]}
+            widthClass={"w-[260px]"}/>
         </div>
     </>
   )
