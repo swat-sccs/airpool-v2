@@ -3,6 +3,18 @@ import styles from "./AirpoolDropdown.module.css"
 
 
 export default function AirpoolDropdown(props: any){
+    const SVGFilter = (
+        <svg visibility="hidden" widths="0" xHeight="0" xmlnsXlink="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />    
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+                </filter>
+            </defs>
+        </svg>
+    );
+
+
     return(
         <>
             <select id={props.id} className={props.widthClass + " bg-accent rounded-slight drop-shadow-dropdown appearance-none h-[48px] text-[32px] pl-[8px]"}>
@@ -17,14 +29,7 @@ export default function AirpoolDropdown(props: any){
                     <div className={styles.filter}>
                         <div className={styles.arrow + " absolute w-[28px] h-[28px] top-[9px] left-[5px]"} />
                     </div>
-                    <svg visibility="hidden" widths="0" xHeight="0" xmlnsXlink="http://www.w3.org/2000/svg">
-                        <defs>
-                            <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />    
-                                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-                                <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-                            </filter>
-                        </defs>
-                    </svg>
+                    {SVGFilter}
                 </div>   
             </div>
         </>
