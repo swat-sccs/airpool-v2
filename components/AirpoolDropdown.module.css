@@ -1,0 +1,12 @@
+
+.arrow{
+    clip-path: polygon( 0% 0%,
+                        100% 0%,
+                        50% 86.6%);
+    background-color: #d9d9d9;
+}
+
+.filter{
+    filter: url('#goo');
+    position: fixed; 
+}

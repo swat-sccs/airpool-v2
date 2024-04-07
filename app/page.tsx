@@ -10,7 +10,7 @@ export default function Home() {
 
   const joinPoolButton = (
     <Link href="/search-pools">
-      <button className={mainButtonsClass}>
+      <button className={mainButtonsClass}> 
         Join a Pool
       </button>
     </Link>

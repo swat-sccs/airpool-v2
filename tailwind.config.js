@@ -19,9 +19,11 @@ module.exports = {
     },
     borderRadius:{
       DEFAULT: "15px",
+      "slight": "5px",
     },
     dropShadow:{
       DEFAULT: "2px 6px 10px #00000044",
+      dropdown: "2px 2px 2px #00000044"
     },
     extend: {
       colors: {
