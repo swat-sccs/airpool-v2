@@ -1,5 +1,6 @@
 import { useState } from "react";
-
+import { PrismaClient, TransportationType} from '@prisma/client'
+import { redirect } from "next/dist/server/api-utils";
 
 export default function Page(){
 
@@ -10,6 +11,8 @@ export default function Page(){
         // not checked and set to the string "on" if the checkbox is checked
         'use server'
         const inData = Object.fromEntries(formData);
+        const prisma = new PrismaClient({});
+    
         console.log("test");
         try{
             const data = {
@@ -30,7 +33,27 @@ export default function Page(){
                 meetupDirections: inData.meetupDirections,
                 description: inData.description,
             }
-            // Continue Code Here
+            // create carpool
+            const carpool = await prisma.carpool.create({
+                data: {
+                    name: 'Name',
+                    destination: data.destination.toString(),
+                    meetingPlace: data.meetingPlace.toString(),
+                    meetingTime: new Date("${data.dateMonth} ${data.dateDay}, ${data.dateYear} ${data.dateHour}:${data.dateMinute}:${data.dateSecond} ${data.dateAMPM}"),
+                    availableSeats: parseInt(data.seatsAvailable.toString()),
+                    transportationType: TransportationType[data.vehicleType.toString() as keyof typeof TransportationType],
+                    acceptsVenmo: Boolean(data.takesVenmo),
+                    acceptsApplePay: Boolean(data.takesApplePay),
+                    acceptsZelle: Boolean(data.takesZelle),
+                    acceptsCash: Boolean(data.takesCash),
+                    meetingInstructions: data.meetupDirections.toString(),
+                    message: data.description.toString(),
+                    students: {
+                        create: [{name: 'Name', studentId: 123456789}] // TODO: replace 'Name' and 'StudentID' with actual values
+                    }
+
+                }
+            })
         }
         catch (error: any){
             console.log("error");
