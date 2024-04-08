@@ -1,6 +1,13 @@
 
 import styles from "./AirpoolDropdown.module.css"
 
+/**
+ * 
+ * Props:
+ *      options (string[][]) - An array where each element is an array of two elements [optionID, and optionName]
+ *      width (int) - The width of the dropdown (0px by default)
+ * 
+ */
 
 export default function AirpoolDropdown(props: any){
     const SVGFilter = (
@@ -17,7 +24,10 @@ export default function AirpoolDropdown(props: any){
 
     return(
         <>
-            <select id={props.id} className={props.widthClass + " bg-accent rounded-slight drop-shadow-dropdown appearance-none outline-none h-[48px] text-[32px] pl-[8px]"}>
+            <select id={props.id} 
+                    style = {{width: props.width,}}
+                    className={props.widthClass + " bg-accent rounded-slight drop-shadow-dropdown appearance-none outline-none h-[48px] text-[32px] pl-[8px]"}>
+                <option id="NA"><i>- Select -</i></option>
                 {
                     props.options.map(function(option: any){
                         return (<option id={option[1]}>{option[0]}</option>);
