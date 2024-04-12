@@ -16,6 +16,14 @@ export default function Home() {
     </Link>
   );
 
+  const createPoolButton = (
+    <Link href="/create-pools-temp">
+      <button className={mainButtonsClass}> 
+        Create Pool
+      </button>
+    </Link>
+  );
+
   return (
     <>
       <div className="text-center mt-[44px]">
@@ -24,7 +32,7 @@ export default function Home() {
       </div>
 
       <div className='mt-[16px]'>
-        <SCCSBox extraClasses={mainButtonsClass} contents={[joinPoolButton, "Create a Pool"]} />
+        <SCCSBox extraClasses={mainButtonsClass} contents={[joinPoolButton, createPoolButton]} />
       </div>
 
       <div className="flex flex-row flex-wrap justify-between mt-[9vh] gap-[30px] md:gap-[40px] lg:gap-[70px] mb-[32px]">

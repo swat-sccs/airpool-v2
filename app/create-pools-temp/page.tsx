@@ -34,14 +34,24 @@ export default function Page(){
                 description: inData.description,
             }
             // create carpool
+            var hour = parseInt(data.dateHour.toString());
+            var amPm = data.dateAMPM.toString().toLowerCase();
+            if (amPm == "pm" && hour < 12){
+                hour += 12;
+            }
+            var car = data.vehicleType.toString();
+            if (car.toLowerCase() == "car"){
+                car = "PERSONAL_CAR";
+            }
+
             const carpool = await prisma.carpool.create({
                 data: {
                     name: 'Name',
                     destination: data.destination.toString(),
                     meetingPlace: data.meetingPlace.toString(),
-                    meetingTime: new Date("${data.dateMonth} ${data.dateDay}, ${data.dateYear} ${data.dateHour}:${data.dateMinute}:${data.dateSecond} ${data.dateAMPM}"),
+                    meetingTime: new Date(parseInt(data.dateYear.toString()), parseInt(data.dateMonth.toString()), parseInt(data.dateDay.toString()), hour, parseInt(data.dateMinute.toString()), 0),
                     availableSeats: parseInt(data.seatsAvailable.toString()),
-                    transportationType: TransportationType[data.vehicleType.toString() as keyof typeof TransportationType],
+                    transportationType: TransportationType[car.toUpperCase() as keyof typeof TransportationType],
                     acceptsVenmo: Boolean(data.takesVenmo),
                     acceptsApplePay: Boolean(data.takesApplePay),
                     acceptsZelle: Boolean(data.takesZelle),
@@ -57,6 +67,7 @@ export default function Page(){
         }
         catch (error: any){
             console.log("error");
+            console.log(error);
         }
     }
 
