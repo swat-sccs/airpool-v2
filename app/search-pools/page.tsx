@@ -3,6 +3,8 @@ import CalendarView from "@/components/CalendarView'";
 import CarpoolCard from "@/components/CarpoolCard";
 import SCCSBox from "@/components/SCCSBox";
 import { useState } from "react";
+export const dynamic = 'force-dynamic' // defaults to auto
+import { PrismaClient, TransportationType} from '@prisma/client'
 
 // This is completely temporary and just for testing until we get the hecking backend setup
 const poolData = [
@@ -58,15 +60,22 @@ const poolData = [
     },
 ]
 
+export async function GetAllPools() {
+    const prisma = new PrismaClient({});
+    return await prisma.carpool.findMany();
+}
+
 const displayTypes = ["list", "grid"];
 
-export default function Pools(){
+export default async function Pools(){
 
     const [displayTypeIndex, setDisplayTypeIndex] = useState(0);
 
     function toggleDisplayType(){
         setDisplayTypeIndex((displayTypeIndex + 1) % displayTypes.length);
     }
+
+    const pools = await GetAllPools(); // i think this needs to be removed, or else it will cause the page to crash
 
     return (
         <>
@@ -77,8 +86,14 @@ export default function Pools(){
                         
             <div className={`flex flex-wrap items-center ${displayTypeIndex == 0 ? "flex-col" : "flex-row gap-[80px]"} mt-[40px]`}>
             {
-                poolData.map(function(p){
-                    return <CarpoolCard isDotBlue={p.isDotBlue} destination={p.destination} vehicleType={p.vehicleType} paymentMethods={p.paymentMethods} seatCount={p.seatCount} time={p.time} date={p.date} displayType={displayTypes[displayTypeIndex]} />
+            
+                pools.map(function(p){
+                    var paymentTypes = [""];
+                    if (p.acceptsApplePay) {paymentTypes.push("Apple Pay")}
+                    if (p.acceptsCash) {paymentTypes.push("Cash")}
+                    if (p.acceptsVenmo) {paymentTypes.push("Venmo")}
+                    if (p.acceptsZelle) {paymentTypes.push("Zelle")}
+                    return <CarpoolCard isDotBlue={true} destination={p.destination} vehicleType={p.transportationType.toString()} paymentMethods={paymentTypes} seatCount={p.availableSeats} time={p.meetingTime.toLocaleString()} date={p.meetingTime.toLocaleString()} displayType={displayTypes[displayTypeIndex]} />
                 })
             }
             </div>
