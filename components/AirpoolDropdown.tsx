@@ -6,6 +6,7 @@ import styles from "./AirpoolDropdown.module.css"
  * Props:
  *      options (string[][]) - An array where each element is an array of two elements [optionID, and optionName]
  *      width (int) - The width of the dropdown (0px by default)
+ *      id (string) - The ID to be assigned to the dropdown
  * 
  */
 

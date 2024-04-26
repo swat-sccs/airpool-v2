@@ -31,6 +31,7 @@ module.exports = {
         "page-bg": "#b2d6ff",
         "card-bg": "#f1f1f1",
         "accent": "#e1e1e1",
+        "accent2": "#d1d1d1",
         "alt-blue": "#364a6d",
       },
       fontFamily: {
