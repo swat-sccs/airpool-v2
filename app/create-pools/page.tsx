@@ -6,6 +6,8 @@ import CreateFormTextBox from "@/components/CreateFormTextBox";
 import AirpoolDropdown from "@/components/AirpoolDropdown";
 import SmallTitle from "@/components/SmallTitle";
 import SmallText from "@/components/SmallText";
+import DateDropdown from "@/components/DateDropdown";
+import CreatePoolButton from "@/components/CreatePoolButton";
 
 export default function Create_Pools() {
 
@@ -27,12 +29,18 @@ export default function Create_Pools() {
             </div>
             <SmallText Description="Please note AirPool is not responsible for handling any transactions, and that negotiating or ensuring a fair split of payment is to be handled among you and the other passengers."></SmallText>
             <div className= "mt-[55px]">
-                <CreateFormTextBox title={"Meetup Directions"} 
-                    smallText={"Please describe in detail how and where you and the other passengers will meet for the carpool. One should be able to follow these directions to the car without any further assisstance"}></CreateFormTextBox>
+                <CreateFormTextBox 
+                    title={"Meetup Directions"} 
+                    smallText={"(Please describe in detail how and where you and the other passengers will meet for the carpool. One should be able to follow these directions to the car without any further assisstance)"}
+                    placeholder={"Write your meetup directions here..."} width= "864px" height="297px"></CreateFormTextBox>
             </div>
-            <div className= "mt-[30px] mb-[30px]">
+            <div className= "mt-[30px]">
                 <CreateFormTextBox title={"Description/Extra Information"} 
-                    smallText={"Any further information you think it would be useful to provide?"}></CreateFormTextBox>
+                    smallText={"(Any further information you think it would be useful to provide?)"}
+                    placeholder={"Write your description here..."} width= "864px" height="297px"></CreateFormTextBox>
+            </div>
+            <div className= "text-white text-[42px] mt-[50px] mb-[20px]"> 
+                <CreatePoolButton contents='Create Carpool'></CreatePoolButton>
             </div>
         </div>
         </>
