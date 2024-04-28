@@ -17,11 +17,14 @@
 export default function CreateFormTextBox(props: any){
     return (
         <div className="flex flex-col items-center">
-            <div className={props.bigTextClass + "mb-[30px] text-[42px] self-start"}>{props.title}:</div>
-            <textarea name={props.name} id={props.id} placeholder={props.placeholder} 
+            <div className={props.bigTextClass + " mb-[30px] text-[42px] self-start"}>{props.title}:</div>
+            <textarea 
+                name={props.name} 
+                id={props.id} 
+                placeholder={props.placeholder} 
                 style={{width: props.width, height: props.height,}}
-                className="bg-accent rounded-slight drop-shadow-dropdown outline-none placeholder:italic p-[17px_13px] text-[24px]"/>
-            <div className={props.smallTextClass + "mt-[21px] ml-[30px] text-[22px] text-gray-500"}>{props.smallText}</div>
+                className="bg-accent rounded-slight drop-shadow-dropdown outline-none placeholder:italic p-[17px_13px] text-[24px] self-start ml-[60px]"/>
+            <div className={props.smallTextClass + " mt-[21px] ml-[30px] text-[22px] text-gray-500"}>{props.smallText}</div>
         </div>
     )
 }

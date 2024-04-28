@@ -12,7 +12,7 @@ export default function TickBox(props: any){
   }
 
   const uncheckedBox = (<span className = "mb-[20px] bg-accent2 hover:bg-accent w-[28px] h-[28px] block rounded-slight drop-shadow-dropdown" />)
-  const checkedBox = (<span className="drop-shadow-dropdown"><Image src={checkedBoxSVG} width={28} height={28} alt="Y" /></span>);
+  const checkedBox = (<span className="drop-shadow-dropdown"><Image src={checkedBoxSVG} width={32} height={32} alt="Y" /></span>);
 
   return (
     <>

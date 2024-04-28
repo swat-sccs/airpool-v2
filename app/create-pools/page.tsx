@@ -10,6 +10,22 @@ import DateDropdown from "@/components/DateDropdown";
 import CreatePoolButton from "@/components/CreatePoolButton";
 import SingleDropdown from "@/components/SingleDropdown";
 
+
+const monthOptions = [
+    ["january", "January"],
+    ["february", "February"],
+    ["march", "March"],
+    ["april", "April"],
+    ["may", "May"],
+    ["june", "June"],
+    ["july", "August"],
+    ["august", "August"],
+    ["september", "September"],
+    ["october", "October"],
+    ["november", "November"],
+    ["december", "December"],
+]
+
 export default function Create_Pools() {
 
 
@@ -30,7 +46,7 @@ export default function Create_Pools() {
             </div>
             <div className="mt-[75px] flex flex-row items-center">
                 <SmallTitle Description="Date:"></SmallTitle> 
-                <AirpoolDropdown options={["January", "February", "March", "April", "May", "June"]} width="200px"> </AirpoolDropdown>
+                <AirpoolDropdown options={monthOptions} width="200px"> </AirpoolDropdown>
                 <AirpoolDropdown options={["1", "2", "3", "4", "5", "31"]} width="100px"> </AirpoolDropdown>
                 <AirpoolDropdown options={["2024", "2023", "2022"]} width="100px"> </AirpoolDropdown>
             </div>
@@ -38,7 +54,7 @@ export default function Create_Pools() {
                 <SmallTitle Description="Time:"></SmallTitle> 
                 <AirpoolDropdown options={["1", "2", "3", "4", "5", "12"]} width="100px"> </AirpoolDropdown>
                 <AirpoolDropdown options={["1", "2", "3", "4", "5", "60"]} width="100px"> </AirpoolDropdown>
-                <AirpoolDropdown options={["AM", "PM"]} width="100px"> </AirpoolDropdown>
+                <AirpoolDropdown options={[["am", "AM"], ["pm", "PM"]]} width="100px"> </AirpoolDropdown>
             </div>
             <div className="mt-[20px] flex flex-row items-center">
                 <SmallTitle Description="Seats Available:"></SmallTitle> 
@@ -47,7 +63,7 @@ export default function Create_Pools() {
             </div>
             <div className="mt-[20-px] mb-[75px] flex flex-row items-center">
                 <SmallTitle Description="Vehicle Type:"></SmallTitle> 
-                <AirpoolDropdown options={["Uber", "Lyft"]} width="200px"> </AirpoolDropdown>
+                <AirpoolDropdown options={[["personal-car", "Personal Car"], ["uber", "Uber"], ["lyft", "Lyft"]]} width="200px"> </AirpoolDropdown>
             </div>
             <SmallTitle Description="Payment Methods" ></SmallTitle>
             <SmallText Description="Select all payment methods that you would accept from fellow passengers"></SmallText>
