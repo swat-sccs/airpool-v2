@@ -26,7 +26,8 @@ export default function AirpoolDropdown(props: any){
         <>
             <select id={props.id} 
                     style = {{width: props.width,}}
-                    className={props.widthClass + " bg-accent rounded-slight drop-shadow-dropdown appearance-none outline-none h-[48px] text-[32px] pl-[8px]"}>
+                    className={props.widthClass + " bg-accent rounded-slight drop-shadow-dropdown appearance-none outline-none h-[48px] text-[32px] pl-[8px]"}
+                    onChange={props.onChange}>
                 <option id="NA"> - </option>
                 {
                     props.options.map(function(option: any){
