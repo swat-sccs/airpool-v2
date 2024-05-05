@@ -62,8 +62,9 @@ const poolData = [
 
 const displayTypes = ["list", "grid"];
 
-export default function Pools(props: {content:any}){
 
+export default function Pools(props: {content:any}){
+    
     const [displayTypeIndex, setDisplayTypeIndex] = useState(0);
 
     function toggleDisplayType(){
