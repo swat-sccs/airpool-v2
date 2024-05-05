@@ -4,7 +4,7 @@ import CarpoolCard from "@/components/CarpoolCard";
 import SCCSBox from "@/components/SCCSBox";
 import { useState } from "react";
 export const dynamic = 'force-dynamic' // defaults to auto
-import { PrismaClient, TransportationType} from '@prisma/client'
+import { Carpool, PrismaClient, TransportationType} from '@prisma/client'
 
 // This is completely temporary and just for testing until we get the hecking backend setup
 const poolData = [
@@ -63,13 +63,22 @@ const poolData = [
 const displayTypes = ["list", "grid"];
 
 
-export default function Pools(props: {content:any}){
-    
+export default function Pools(props: {carpools:Carpool[]}){
+
     const [displayTypeIndex, setDisplayTypeIndex] = useState(0);
 
     function toggleDisplayType(){
         setDisplayTypeIndex((displayTypeIndex + 1) % displayTypes.length);
     }
+
+    const data = props.carpools.map(function(p){
+        var paymentTypes = [""];
+        if (p.acceptsApplePay) {paymentTypes.push("Apple Pay")}
+        if (p.acceptsCash) {paymentTypes.push("Cash")}
+        if (p.acceptsVenmo) {paymentTypes.push("Venmo")}
+        if (p.acceptsZelle) {paymentTypes.push("Zelle")}
+        return <CarpoolCard isDotBlue={true} destination={p.destination} vehicleType={p.transportationType.toString()} paymentMethods={paymentTypes} seatCount={p.availableSeats} time={p.meetingTime.toLocaleTimeString('en-US', { timeZone: 'UTC' })} date={p.meetingTime.toDateString()} displayType={displayTypes[displayTypeIndex]} />
+    })
 
     return (
         <>
@@ -80,7 +89,9 @@ export default function Pools(props: {content:any}){
                         
             <div className={`flex flex-wrap items-center ${displayTypeIndex == 0 ? "flex-col" : "flex-row gap-[80px]"} mt-[40px]`}>
             {
-                props.content
+                
+                data
+
             }
             </div>
         </>

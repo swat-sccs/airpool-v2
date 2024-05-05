@@ -34,10 +34,14 @@ export default function Page(){
                 description: inData.description,
             }
             // create carpool
-            var hour = parseInt(data.dateHour.toString());
+            var hour = parseInt(data.dateHour.toString()); // Date hours start at 0
+            var month = parseInt(data.dateMonth.toString()) - 1; // Date months start at 0
             var amPm = data.dateAMPM.toString().toLowerCase();
             if (amPm == "pm" && hour < 12){
                 hour += 12;
+            }
+            if (amPm == "am" && hour == 12){ // midnight
+                hour = 0;
             }
             var car = data.vehicleType.toString();
             if (car.toLowerCase() == "car"){
@@ -49,7 +53,7 @@ export default function Page(){
                     name: 'Name',
                     destination: data.destination.toString(),
                     meetingPlace: data.meetingPlace.toString(),
-                    meetingTime: new Date(parseInt(data.dateYear.toString()), parseInt(data.dateMonth.toString()), parseInt(data.dateDay.toString()), hour, parseInt(data.dateMinute.toString()), 0),
+                    meetingTime: new Date(parseInt(data.dateYear.toString()), month, parseInt(data.dateDay.toString()), hour, parseInt(data.dateMinute.toString()), 0),
                     availableSeats: parseInt(data.seatsAvailable.toString()),
                     transportationType: TransportationType[car.toUpperCase() as keyof typeof TransportationType],
                     acceptsVenmo: Boolean(data.takesVenmo),
