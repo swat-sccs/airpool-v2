@@ -22,8 +22,7 @@ export default function Home() {
   return (
     <>
         <div className='mt-[10px]'>
-            <CreateFormTextBox title={"Meeting Directions"} smallText = {"This is some test small text"} placeholder={"Please enter your text here..."} 
-              bigTextClass={"text-[42px]"} width={600} height={200}/>
+          <CalendarView></CalendarView>
         </div>
     </>
   )
