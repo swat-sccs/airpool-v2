@@ -7,7 +7,7 @@ import { useState } from "react";
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["Jnauary", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-const lineClampClass = "line-clamp-2 overflow-ellipsis";
+const lineClampClass = "line-clamp-1 overflow-ellipsis";
 const arrowClass = "w-[70px] transition duration-[0.2s] scale-100 hover:scale-[1.01]";
 
 interface Pool {
@@ -34,7 +34,7 @@ const poolData = [
         "seatCount": 4,
         "isRoundTrip": false,
         "time": "1:00 AM",
-        "month": 4,
+        "month": 10,
         "day": 12, 
         "year": 2024
     },
@@ -47,7 +47,7 @@ const poolData = [
         "seatCount": 61,
         "isRoundTrip": false,
         "time": "2:30 PM",
-        "month": 4,
+        "month": 10,
         "day": 12, 
         "year": 2024
     },
@@ -60,8 +60,8 @@ const poolData = [
         "seatCount": 1,
         "isRoundTrip": false,
         "time": "11:00 AM",
-        "month": 4,
-        "day": 28, 
+        "month": 10,
+        "day": 12, 
         "year": 2024
     },
     {
@@ -73,7 +73,7 @@ const poolData = [
         "seatCount": 3,
         "isRoundTrip": false,
         "time": "3:45 PM",
-        "month": 5,
+        "month": 10,
         "day": 1, 
         "year": 2024,
     },
@@ -86,7 +86,7 @@ const poolData = [
         "seatCount": 4,
         "isRoundTrip": false,
         "time": "11:11 PM",
-        "month": 8,
+        "month": 10,
         "day": 20, 
         "year": 2024
     },
@@ -95,27 +95,28 @@ const poolData = [
 function createDay(dayOnCalendar: number, monthOnCalendar: number, daysInMonth: number, currentDay: number, currentMonth: number, poolsOnDay: Array<Pool>){
     let backgroundColorClass = "bg-accent";
     if (dayOnCalendar == currentDay && monthOnCalendar == currentMonth){
-        backgroundColorClass = "bg-[#FFFFAA]"
+        backgroundColorClass = "bg-[#B8ECB2]"
     }
     return (
-    <div className={backgroundColorClass + " w-[13vw] md:w-[11.5vw] h-[84px] lg:h-[112px] xl:h-[180px] rounded mb-[8px] pb-[7px] flex flex-col justify-between"}>   
+    <div className={backgroundColorClass + " w-[13vw] md:w-[11.5vw] h-[168px] lg:h-[200px] xl:h-[225px] rounded mb-[8px] pb-[7px] flex flex-col justify-between"}>   
         <div className="md:text-[16px] lg:text-[19px] xl:text-[22px] pt-[5px] pl-[7px]">
             {(dayOnCalendar < 1) || (dayOnCalendar > daysInMonth)
             ? "" : dayOnCalendar}
         </div>
-        <div className="flex flex-col items-center gap-[5px] mb-[3px]">
+        <div className="flex flex-col items-center gap-[5px] mt-[6px] mb-[3px]">
             {
-                (poolsOnDay !== undefined && poolsOnDay.length > 0) ?
-                (<div className="bg-[#B4B4B4] w-[10.4vw] p-[2px_1px] g:p-[4px_3px] text-[10px] g:text-[14px] xl:text-[17px] text-center rounded-slight pb-[6px]">
-                    <div className="text-left text-[12px] font-bold mt-[2px] ml-[3px] mb-[6px]">8:30 AM</div>
-                    <div className={lineClampClass}>{poolsOnDay[0].departure}</div>
-                    <div className={lineClampClass}>↧</div>
-                    <div className={lineClampClass}>{poolsOnDay[0].destination}</div>
-                </div>) : <></> 
+                (poolsOnDay != undefined) ?
+                poolsOnDay.slice(0, 2).map(function(pool){
+                    return <div className="bg-[#B4B4B4] w-[10.4vw] p-[2px_1px] g:p-[4px_3px] text-[10px] lg:text-[14px] xl:text-[17px] text-center rounded-slight pb-[6px]">
+                                <div className="text-left text-[12px] font-bold mt-[2px] ml-[3px] mb-[6px]">{pool.time}</div>
+                                <div className={lineClampClass}>{pool.departure}</div>
+                                <div className={lineClampClass}>↧</div>
+                                <div className={lineClampClass}>{pool.destination}</div>
+                            </div> }) : <></>
             }
             {
-                (poolsOnDay !== undefined && poolsOnDay.length > 1) ?
-                (<div className="text-center mt-[12px] mb-[3px]">+{poolsOnDay.length - 1} more carpools</div>) : <></>
+                (poolsOnDay !== undefined && poolsOnDay.length > 2) ?
+                (<div className="text-center mt-[1px] mb-[3px] text-[10px] lg:text-[14px] xl:text-[17px]">+{poolsOnDay.length - 2} more carpool{ (poolsOnDay.length - 2 == 2) ? "s" : "" }</div>) : <></>
             }
         </div>
     </div>
@@ -175,7 +176,7 @@ export default function CalendarView(props: any){
         if (displayMonth == 0){
             setDisplayYear(displayYear - 1);
         }
-        setDisplayMonth((displayMonth - 1) % 12);
+        setDisplayMonth(((displayMonth - 1) + 12) % 12); // ((x - 1) + 12) % 12 is the true modulus operator
 
         setAtLatestMonth(false);
         if (displayYear == earliestDisplayYear && displayMonth == earliestDisplayMonth){
