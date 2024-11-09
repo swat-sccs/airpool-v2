@@ -3,7 +3,7 @@ import SCCSFooter from '@/components/SCCSFooter'
 import PoolCardGrouping from '@/components/PoolCardGrouping'
 import SCCSHeader from '@/components/SCCSHeader'
 import Link from 'next/link'
-import CalendarView from '@/components/CalendarView\''
+import CalendarView from '@/components/CalendarView'
 import AirpoolDropdown from '@/components/AirpoolDropdown'
 import CreateFormTextBox from '@/components/CreateFormTextBox'
 

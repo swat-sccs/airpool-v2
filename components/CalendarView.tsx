@@ -125,7 +125,7 @@ function createDay(dayOnCalendar: number, monthOnCalendar: number, daysInMonth: 
 
 export default function CalendarView(props: any){
     const poolDateMap: any = {};
-    poolData.forEach(function(pool){
+    props.pools.forEach(function(pool: Pool){
         const month = pool.month;
         const day = pool.day;
         if (poolDateMap[month] === undefined){

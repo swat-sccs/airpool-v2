@@ -33,6 +33,7 @@ module.exports = {
         "accent": "#e1e1e1",
         "accent2": "#d1d1d1",
         "alt-blue": "#364a6d",
+        "deep-blue": "#253249"
       },
       fontFamily: {
           sans: ["var(--font-base)"],

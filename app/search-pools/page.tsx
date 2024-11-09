@@ -1,8 +1,9 @@
 "use client"
-import CalendarView from "@/components/CalendarView'";
+import CalendarView from "@/components/CalendarView";
 import CarpoolCard from "@/components/CarpoolCard";
 import SCCSBox from "@/components/SCCSBox";
 import { useState } from "react";
+import PoolResults from "./PoolResults";
 
 // This is completely temporary and just for testing until we get the hecking backend setup
 const poolData = [
@@ -14,7 +15,7 @@ const poolData = [
         "seatCount": 4,
         "isRoundTrip": false,
         "time": "1:00 AM",
-        "date": "April 1, 2023"
+        "date": "Novemeber 1, 2024"
     },
     {
         "isDotBlue": false,
@@ -24,7 +25,7 @@ const poolData = [
         "seatCount": 61,
         "isRoundTrip": false,
         "time": "2:30 PM",
-        "date": "April 6, 2023"
+        "date": "November 6, 2024"
     },
     {
         "isDotBlue": false,
@@ -34,7 +35,7 @@ const poolData = [
         "seatCount": 1,
         "isRoundTrip": false,
         "time": "11:00 AM",
-        "date": "April 4, 2023"
+        "date": "December 4, 2024"
     },
     {
         "isDotBlue": true,
@@ -44,7 +45,7 @@ const poolData = [
         "seatCount": 3,
         "isRoundTrip": false,
         "time": "3:45 PM",
-        "date": "April 10, 2023"
+        "date": "October 10, 2024"
     },
     {
         "isDotBlue": false,
@@ -54,33 +55,32 @@ const poolData = [
         "seatCount": 4,
         "isRoundTrip": false,
         "time": "11:11 PM",
-        "date": "April 11, 2023"
+        "date": "November 11, 2024"
     },
 ]
 
-const displayTypes = ["list", "grid"];
+enum DisplayMode {
+    List,
+    Grid,
+    Calendar
+}
 
 export default function Pools(){
 
-    const [displayTypeIndex, setDisplayTypeIndex] = useState(0);
+    const [displayMode, setDisplayMode] = useState(DisplayMode.List);
 
-    function toggleDisplayType(){
-        setDisplayTypeIndex((displayTypeIndex + 1) % displayTypes.length);
+    function toggleDisplayType(displayMode: DisplayMode){
+        setDisplayMode(displayMode);
     }
 
     return (
         <>
-            <button onClick={toggleDisplayType}>Toggle Display Type</button>
             <div className="mt-[25px]">
                 <SCCSBox extraClasses="w-[88vw]" contents={"Search Pools"} />
             </div>
-                        
-            <div className={`flex flex-wrap items-center ${displayTypeIndex == 0 ? "flex-col" : "flex-row gap-[80px]"} mt-[40px]`}>
-            {
-                poolData.map(function(p){
-                    return <CarpoolCard isDotBlue={p.isDotBlue} destination={p.destination} vehicleType={p.vehicleType} paymentMethods={p.paymentMethods} seatCount={p.seatCount} time={p.time} date={p.date} displayType={displayTypes[displayTypeIndex]} />
-                })
-            }
+
+            <div className="mt-[20px]">
+                <PoolResults pools={poolData}/>
             </div>
         </>
     )
