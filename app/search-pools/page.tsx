@@ -1,4 +1,5 @@
 "use client"
+import AirpoolDropdown from "@/components/AirpoolDropdown";
 import CalendarView from "@/components/CalendarView'";
 import CarpoolCard from "@/components/CarpoolCard";
 import SCCSBox from "@/components/SCCSBox";
@@ -63,15 +64,15 @@ const displayTypes = ["list", "grid"];
 export default function Pools(){
 
     const [displayTypeIndex, setDisplayTypeIndex] = useState(0);
-    const [isSearching, setIsSearching] = useState(false); // enter a search box
-    const [searchTerm, setSearchTerm] = useState(""); // store search input
-
+    const [searchTerm, setSearchTerm] = useState(""); // store search input from searchbox
+    const [filter, showFilter] = useState(false); // toggle to show filters or not when clicking
+    
+    //initiate state variables to show filter options like a calendar when searching for date, payment options, etc.
+    const [time, toggleTime] = useState(false);
+    const [calendar, toggleCalendar] = useState(false);
+    const [payment, togglePayment] = useState(false);
     function toggleDisplayType(){
         setDisplayTypeIndex((displayTypeIndex + 1) % displayTypes.length);
-    }
-
-    function searchPools(){
-        setIsSearching(true);
     }
 
     const searchData = poolData.filter((p) => { //can search all fields
@@ -81,30 +82,79 @@ export default function Pools(){
         });
     });
 
+    function toggleFilter() {
+        showFilter(filter => !filter); //toggle on and off based on previous state
+
+    }
+
+    function showTime() {
+        alert("showing time slider");
+        toggleTime(time => !time)
+    }
+
+    function showCalendar() {
+        alert("showing calendar");
+        toggleCalendar(calendar => !calendar);
+    }
+
+    function showPayment() {
+        alert("showing payment");
+        togglePayment(payment => !payment);
+
+    }
     // this sets displaydata to searchdata for search, if not use poolData(all), allows us to only display search items
     const displayData = searchTerm ? searchData : poolData; 
 
     return (
         <>
             <button onClick={toggleDisplayType}>Toggle Display Type</button>
-            <div className="flex justify-center w-full">
-                <button className="flex justify-center items-center" onClick={searchPools}> 
-                    <SCCSBox extraClasses="w-[88vw]" contents={"Search Pools"}/>
-                </button>
-            </div> 
+            
+            {/* search box and search filter */}
+            <div className="mt-[20px] flex justify-center space-x-1 items-center h-10 relative">
+                {/* search filter options dropdown */}
+                {/* Wrapper for search filter options dropdown */}
+                <div className="relative">
+                    <button className="flex items-center justify-start relative" onClick={toggleFilter}> 
+                        <SCCSBox contents={"Search by:"} padding="p-0" gap="gap-0" extraClasses="p-0 m-0 hover:scale-[1.03]"/> 
+                    </button>
 
-            {/* search box to be displayed and typed into */}
-            {isSearching && (
-                <div className="mt-[20px] flex justify-center">
-                    <input
-                        type="text"
-                        placeholder="Search for carpools..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="p-2 border rounded w-fit"
-                    />
+                    {/* Search filter options */}
+                    {filter && (
+                        <div className="absolute top-full left-0 mt-1 bg-primary rounded drop-shadow w-[100%] z-10 pt-3">
+                            <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto 
+                                                                    rounded h-[30px] w-[75%] py-6 hover:scale-[1.03]">
+                                <button onClick={showTime} className="absolute inset-0 flex items-center justify-center 
+                                                                                                        w-full h-full">
+                                    Time
+                                </button>
+                            </div>
+                            <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
+                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-3">
+                                <button onClick={showCalendar} className="absolute inset-0 flex items-center justify-center
+                                                                                                             w-full h-full">
+                                    Date
+                                </button>
+                            </div>
+                            <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
+                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-3 mb-3">
+                                <button onClick={showPayment} className="absolute inset-0 flex items-center justify-center
+                                                                                                             w-full h-full">
+                                    Payment
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
-            )}
+                
+                {/* searchbox */}
+                <input
+                    type="text"
+                    placeholder="Search for carpools..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="py-0.5 px-2 w-[28%] h-10 border rounded w-fit"
+                />
+            </div>
                         
             <div className={`flex flex-wrap items-center ${displayTypeIndex == 0 ? "flex-col" : "flex-row gap-[80px]"} mt-[40px]`}>
             {
