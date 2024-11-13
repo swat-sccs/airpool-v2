@@ -71,6 +71,8 @@ export default function Pools(){
     const [time, toggleTime] = useState(false);
     const [calendar, toggleCalendar] = useState(false);
     const [payment, togglePayment] = useState(false);
+    const paymentOptions = Array.from(new Set(poolData.flatMap(obj => obj.paymentMethods)));
+
     function toggleDisplayType(){
         setDisplayTypeIndex((displayTypeIndex + 1) % displayTypes.length);
     }
@@ -84,23 +86,29 @@ export default function Pools(){
 
     function toggleFilter() {
         showFilter(filter => !filter); //toggle on and off based on previous state
-
+        toggleTime(false);
+        toggleCalendar(false);
+        togglePayment(false);
     }
 
     function showTime() {
-        alert("showing time slider");
+        //alert("showing time slider");
         toggleTime(time => !time)
     }
 
     function showCalendar() {
-        alert("showing calendar");
+        //alert("showing calendar");
         toggleCalendar(calendar => !calendar);
     }
 
     function showPayment() {
-        alert("showing payment");
+        //alert("showing payment");
         togglePayment(payment => !payment);
 
+    }
+
+    function resetFilter() {
+        //resets data back to whatever in search bar
     }
     // this sets displaydata to searchdata for search, if not use poolData(all), allows us to only display search items
     const displayData = searchTerm ? searchData : poolData; 
@@ -127,19 +135,83 @@ export default function Pools(){
                                                                                                         w-full h-full">
                                     Time
                                 </button>
+                                { time && (
+                                    <div className="absolute top-0 right-[-290px]"> 
+                                        {/* Time Range or Single Time Input */}
+                                        <div className="flex items-center gap-2 mt-2 bg-white p-2 rounded shadow-lg">
+                                            <input
+                                                type="time"
+                                                placeholder="Start Time"
+                                                //onChange={(e) => setSearchTerm((prev) => ({ ...prev, startTime: e.target.value }))}
+                                                className="border rounded p-1"
+                                            />
+                                            <span>to</span>
+                                            <input
+                                                type="time"
+                                                placeholder="End Time"
+                                                //onChange={(e) => setSearchTerm((prev) => ({ ...prev, endTime: e.target.value }))}
+                                                className="border rounded p-1"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
                             </div>
+
                             <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
                                                                             h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-3">
                                 <button onClick={showCalendar} className="absolute inset-0 flex items-center justify-center
                                                                                                              w-full h-full">
                                     Date
                                 </button>
+                                
+                                { calendar && (
+                                        <div className="absolute top-0 right-[-380px] flex items-center gap-2 mt-2 
+                                                                                        bg-white p-2 rounded shadow-lg">
+                                            <input
+                                                type="date"
+                                                placeholder="Start Date"
+                                                //onChange={(e) => setSearchTerm((prev) => ({ ...prev, startTime: e.target.value }))}
+                                                className="border rounded p-1"
+                                            />
+                                            <span>to</span>
+                                            <input
+                                                type="date"
+                                                placeholder="End Date"
+                                                //onChange={(e) => setSearchTerm((prev) => ({ ...prev, endTime: e.target.value }))}
+                                                className="border rounded p-1"
+                                            />
+                                        </div>
+                                )}
                             </div>
+
                             <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
-                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-3 mb-3">
+                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-3">
                                 <button onClick={showPayment} className="absolute inset-0 flex items-center justify-center
                                                                                                              w-full h-full">
                                     Payment
+                                </button>
+
+                                {payment && (
+                                    <div className="absolute top-0 right-[-250px] mt-2 bg-white p-2 rounded shadow-lg z-10">
+                                        <select
+                                            className="border rounded p-1 w-full"
+                                            onChange={(e) => console.log("Selected payment method:", e.target.value)}
+                                        >
+                                            <option value="">Select Payment Method</option>
+                                            {paymentOptions.map((method, index) => (
+                                                <option key={index} value={method}>
+                                                    {method}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
+                                                                            h-[10px] w-[75%] py-6 hover:scale-[1.03] mt-3 mb-3">
+                                <button onClick={resetFilter} className="absolute inset-0 flex items-center justify-center
+                                                                                                             w-full h-full">
+                                    Reset All Filters
                                 </button>
                             </div>
                         </div>
@@ -152,7 +224,7 @@ export default function Pools(){
                     placeholder="Search for carpools..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="py-0.5 px-2 w-[28%] h-10 border rounded w-fit"
+                    className="py-0.5 px-2 w-[25%] h-10 border rounded"
                 />
             </div>
                         
