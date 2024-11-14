@@ -128,87 +128,65 @@ export default function Pools(){
 
                     {/* Search filter options */}
                     {filter && (
-                        <div className="absolute top-full left-0 mt-1 bg-primary rounded drop-shadow w-[100%] z-10 pt-3">
-                            <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto 
-                                                                    rounded h-[30px] w-[75%] py-6 hover:scale-[1.03]">
-                                <button onClick={showTime} className="absolute inset-0 flex items-center justify-center 
-                                                                                                        w-full h-full">
-                                    Time
-                                </button>
-                                { time && (
-                                    <div className="absolute top-0 right-[-290px]"> 
-                                        {/* Time Range or Single Time Input */}
-                                        <div className="flex items-center gap-2 mt-2 bg-white p-2 rounded shadow-lg">
-                                            <input
-                                                type="time"
-                                                placeholder="Start Time"
-                                                //onChange={(e) => setSearchTerm((prev) => ({ ...prev, startTime: e.target.value }))}
-                                                className="border rounded p-1"
-                                            />
-                                            <span>to</span>
-                                            <input
-                                                type="time"
-                                                placeholder="End Time"
-                                                //onChange={(e) => setSearchTerm((prev) => ({ ...prev, endTime: e.target.value }))}
-                                                className="border rounded p-1"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
+                        <div className="absolute top-full mt-1 bg-primary rounded drop-shadow w-[260%] z-10 pt-3">
+                            <div className="relative flex items-center justify-center gap-[12px] m-auto rounded h-[30px] 
+                                                                                        w-[75%] py-6 hover:scale-[1.03]">
+                                <div className="flex items-center gap-2 bg-card-bg p-2 rounded shadow-lg">
+                                    <input
+                                        type="time"
+                                        placeholder="Start Time"
+                                        //onChange={(e) => setSearchTerm((prev) => ({ ...prev, startTime: e.target.value }))}
+                                        className="border rounded p-1 bg-card-bg"
+                                    />
+                                    <span>to</span>
+                                    <input
+                                        type="time"
+                                        placeholder="End Time"
+                                        //onChange={(e) => setSearchTerm((prev) => ({ ...prev, endTime: e.target.value }))}
+                                        className="border rounded p-1 bg-card-bg"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="relative flex items-center justify-center gap-[12px] m-auto rounded 
+                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-1">
+                                <div className="absolute top-0 flex items-center gap-2 mt-2 
+                                                                                bg-card-bg p-2 rounded shadow-lg">
+                                    <input
+                                        type="date"
+                                        placeholder="Start Date"
+                                        //onChange={(e) => setSearchTerm((prev) => ({ ...prev, startTime: e.target.value }))}
+                                        className="border rounded p-1 bg-card-bg"
+                                    />
+                                    <span>to</span>
+                                    <input
+                                        type="date"
+                                        placeholder="End Date"
+                                        //onChange={(e) => setSearchTerm((prev) => ({ ...prev, endTime: e.target.value }))}
+                                        className="border rounded p-1 bg-card-bg"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="relative flex items-center justify-center gap-[12px] m-auto rounded 
+                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-2.5">
+                                <div className="absolute top-0 mt-2 bg-card-bg p-2 rounded shadow-lg z-10">
+                                    <select
+                                        className="border rounded p-1 w-full"
+                                        onChange={(e) => console.log("Selected payment method:", e.target.value)}
+                                    >
+                                        <option value="">Select Payment Method</option>
+                                        {paymentOptions.map((method, index) => (
+                                            <option key={index} value={method}>
+                                                {method}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
 
                             <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
-                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-3">
-                                <button onClick={showCalendar} className="absolute inset-0 flex items-center justify-center
-                                                                                                             w-full h-full">
-                                    Date
-                                </button>
-                                
-                                { calendar && (
-                                        <div className="absolute top-0 right-[-380px] flex items-center gap-2 mt-2 
-                                                                                        bg-white p-2 rounded shadow-lg">
-                                            <input
-                                                type="date"
-                                                placeholder="Start Date"
-                                                //onChange={(e) => setSearchTerm((prev) => ({ ...prev, startTime: e.target.value }))}
-                                                className="border rounded p-1"
-                                            />
-                                            <span>to</span>
-                                            <input
-                                                type="date"
-                                                placeholder="End Date"
-                                                //onChange={(e) => setSearchTerm((prev) => ({ ...prev, endTime: e.target.value }))}
-                                                className="border rounded p-1"
-                                            />
-                                        </div>
-                                )}
-                            </div>
-
-                            <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
-                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-3">
-                                <button onClick={showPayment} className="absolute inset-0 flex items-center justify-center
-                                                                                                             w-full h-full">
-                                    Payment
-                                </button>
-
-                                {payment && (
-                                    <div className="absolute top-0 right-[-250px] mt-2 bg-white p-2 rounded shadow-lg z-10">
-                                        <select
-                                            className="border rounded p-1 w-full"
-                                            onChange={(e) => console.log("Selected payment method:", e.target.value)}
-                                        >
-                                            <option value="">Select Payment Method</option>
-                                            {paymentOptions.map((method, index) => (
-                                                <option key={index} value={method}>
-                                                    {method}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                )}
-                            </div>
-                            <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
-                                                                            h-[10px] w-[75%] py-6 hover:scale-[1.03] mt-3 mb-3">
+                                                                            h-[10px] w-[75%] py-4 hover:scale-[1.03] mt-5 mb-3">
                                 <button onClick={resetFilter} className="absolute inset-0 flex items-center justify-center
                                                                                                              w-full h-full">
                                     Reset All Filters
