@@ -66,11 +66,6 @@ export default function Pools(){
     const [displayTypeIndex, setDisplayTypeIndex] = useState(0);
     const [searchTerm, setSearchTerm] = useState(""); // store search input from searchbox
     const [filter, showFilter] = useState(false); // toggle to show filters or not when clicking
-    
-    //initiate state variables to show filter options like a calendar when searching for date, payment options, etc.
-    const [time, toggleTime] = useState(false);
-    const [calendar, toggleCalendar] = useState(false);
-    const [payment, togglePayment] = useState(false);
     const paymentOptions = Array.from(new Set(poolData.flatMap(obj => obj.paymentMethods)));
 
     function toggleDisplayType(){
@@ -86,25 +81,6 @@ export default function Pools(){
 
     function toggleFilter() {
         showFilter(filter => !filter); //toggle on and off based on previous state
-        toggleTime(false);
-        toggleCalendar(false);
-        togglePayment(false);
-    }
-
-    function showTime() {
-        //alert("showing time slider");
-        toggleTime(time => !time)
-    }
-
-    function showCalendar() {
-        //alert("showing calendar");
-        toggleCalendar(calendar => !calendar);
-    }
-
-    function showPayment() {
-        //alert("showing payment");
-        togglePayment(payment => !payment);
-
     }
 
     function resetFilter() {
@@ -177,7 +153,7 @@ export default function Pools(){
                                     >
                                         <option value="">Select Payment Method</option>
                                         {paymentOptions.map((method, index) => (
-                                            <option key={index} value={method}>
+                                            <option key={index} value={method} className="text-center">
                                                 {method}
                                             </option>
                                         ))}
