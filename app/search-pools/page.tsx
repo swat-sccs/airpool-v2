@@ -68,16 +68,16 @@ export default function Pools(){
     const [filter, showFilter] = useState(false); // toggle to show filters or not when clicking
     const paymentOptions = Array.from(new Set(poolData.flatMap(obj => obj.paymentMethods)));
 
+    // below are state variables for adjusting search filters in the dropdown
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+
     function toggleDisplayType(){
         setDisplayTypeIndex((displayTypeIndex + 1) % displayTypes.length);
     }
-
-    const searchData = poolData.filter((p) => { //can search all fields
-        const query = searchTerm.toLowerCase();
-        return Object.values(p).some((value) => {
-            return value.toString().toLowerCase().includes(query);
-        });
-    });
 
     function toggleFilter() {
         showFilter(filter => !filter); //toggle on and off based on previous state
@@ -85,16 +85,69 @@ export default function Pools(){
 
     function resetFilter() {
         //resets data back to whatever in search bar
+        setSearchTerm("");
+        setStartTime("");
+        setEndTime("");
+        setStartDate("");
+        setEndDate("");
+        setSelectedPaymentMethod("");     
     }
     // this sets displaydata to searchdata for search, if not use poolData(all), allows us to only display search items
-    const displayData = searchTerm ? searchData : poolData; 
+    const searchData = poolData.filter((p) => {
+        const query = searchTerm.toLowerCase();
+        const matchesSearchTerm = Object.values(p).some((value) =>
+            value.toString().toLowerCase().includes(query)
+        );
+    
+        // adjust data for time filter
+        const parseTime = (time: string): number => {
+            const [hours, minutes] = time.match(/\d+/g)?.map(Number) || [0, 0];
+            const isPM = time.toLowerCase().includes("pm");
+            const convertedHours = isPM && hours !== 12 ? hours + 12 : hours === 12 && !isPM ? 0 : hours;
+            return convertedHours * 60 + minutes; // Total minutes since midnight
+        };
+    
+        const poolTime = parseTime(p.time);
+        const startMinutes = startTime ? parseTime(startTime) : null;
+        const endMinutes = endTime ? parseTime(endTime) : null;
+    
+        // time range filter
+        const matchesTime = (() => {
+            if (startMinutes !== null && endMinutes !== null) {
+                return poolTime >= startMinutes && poolTime <= endMinutes;
+            } else if (startMinutes !== null) {
+                return poolTime >= startMinutes;
+            } else if (endMinutes !== null) {
+                return poolTime <= endMinutes;
+            }
+            return true; // if no time filter applied
+        })();
+
+        // adjust data for date filter
+        const poolDate = new Date(p.date).getTime();
+        const startD = startDate ? new Date(startDate).getTime() : null;
+        const endD = endDate ? new Date(endDate).getTime() : null;
+        const matchesDate = startD && endD ? poolDate >= startD && poolDate <= endD : true;
+    
+        // adjust data for payment method filter
+        const matchesPayment =
+            selectedPaymentMethod === "" || p.paymentMethods.includes(selectedPaymentMethod);
+    
+        return matchesSearchTerm && matchesTime && matchesDate && matchesPayment;
+    });
+    
+    // Update displayData
+    const displayData =
+        searchTerm || startTime || endTime || startDate || endDate || selectedPaymentMethod
+            ? searchData
+            : poolData;
 
     return (
         <>
             <button onClick={toggleDisplayType}>Toggle Display Type</button>
             
             {/* search box and search filter */}
-            <div className="mt-[20px] flex justify-center space-x-1 items-center h-10 relative">
+            <div className="mt-[20px] flex justify-center space-x-1 items-center h-10 relative space-x-3">
                 {/* search filter options dropdown */}
                 {/* Wrapper for search filter options dropdown */}
                 <div className="relative">
@@ -111,14 +164,16 @@ export default function Pools(){
                                     <input
                                         type="time"
                                         placeholder="Start Time"
-                                        //onChange={(e) => setSearchTerm((prev) => ({ ...prev, startTime: e.target.value }))}
+                                        value={startTime}
+                                        onChange={(e) => setStartTime(e.target.value)}
                                         className="border rounded p-1 bg-card-bg"
                                     />
                                     <span>to</span>
                                     <input
                                         type="time"
                                         placeholder="End Time"
-                                        //onChange={(e) => setSearchTerm((prev) => ({ ...prev, endTime: e.target.value }))}
+                                        value={endTime}
+                                        onChange={(e) => setEndTime(e.target.value)}
                                         className="border rounded p-1 bg-card-bg"
                                     />
                                 </div>
@@ -131,14 +186,16 @@ export default function Pools(){
                                     <input
                                         type="date"
                                         placeholder="Start Date"
-                                        //onChange={(e) => setSearchTerm((prev) => ({ ...prev, startTime: e.target.value }))}
+                                        value={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
                                         className="border rounded p-1 bg-card-bg"
                                     />
                                     <span>to</span>
                                     <input
                                         type="date"
                                         placeholder="End Date"
-                                        //onChange={(e) => setSearchTerm((prev) => ({ ...prev, endTime: e.target.value }))}
+                                        value={endDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
                                         className="border rounded p-1 bg-card-bg"
                                     />
                                 </div>
@@ -149,7 +206,8 @@ export default function Pools(){
                                 <div className="absolute top-0 mt-2 bg-card-bg p-2 rounded shadow-lg z-10">
                                     <select
                                         className="border rounded p-1 w-full"
-                                        onChange={(e) => console.log("Selected payment method:", e.target.value)}
+                                        value={selectedPaymentMethod}
+                                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                                     >
                                         <option value="">Select Payment Method</option>
                                         {paymentOptions.map((method, index) => (
@@ -178,7 +236,7 @@ export default function Pools(){
                     placeholder="Search for carpools..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="py-0.5 px-2 w-[25%] h-10 border rounded"
+                    className="py-0.5 px-2 w-[40%] h-10 border rounded"
                 />
             </div>
                         
