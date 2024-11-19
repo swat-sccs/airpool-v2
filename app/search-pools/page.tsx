@@ -155,79 +155,78 @@ export default function Pools(){
                         <SCCSBox contents={"Search by:"} padding="p-0" gap="gap-0" extraClasses="p-0 m-0 hover:scale-[1.03]"/> 
                     </button>
 
-                    {/* Search filter options */}
+                    {/* search filter options */}
                     {filter && (
-                        <div className="absolute top-full mt-1 bg-primary rounded drop-shadow w-[260%] z-10 pt-3">
-                            <div className="relative flex items-center justify-center gap-[12px] m-auto rounded h-[30px] 
-                                                                                        w-[75%] py-6 hover:scale-[1.03]">
-                                <div className="flex items-center gap-2 bg-card-bg p-2 rounded shadow-lg">
-                                    <input
-                                        type="time"
-                                        placeholder="Start Time"
-                                        value={startTime}
-                                        onChange={(e) => setStartTime(e.target.value)}
-                                        className="border rounded p-1 bg-card-bg"
-                                    />
-                                    <span>to</span>
-                                    <input
-                                        type="time"
-                                        placeholder="End Time"
-                                        value={endTime}
-                                        onChange={(e) => setEndTime(e.target.value)}
-                                        className="border rounded p-1 bg-card-bg"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="relative flex items-center justify-center gap-[12px] m-auto rounded 
-                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-1">
-                                <div className="absolute top-0 flex items-center gap-2 mt-2 
-                                                                                bg-card-bg p-2 rounded shadow-lg">
-                                    <input
-                                        type="date"
-                                        placeholder="Start Date"
-                                        value={startDate}
-                                        onChange={(e) => setStartDate(e.target.value)}
-                                        className="border rounded p-1 bg-card-bg"
-                                    />
-                                    <span>to</span>
-                                    <input
-                                        type="date"
-                                        placeholder="End Date"
-                                        value={endDate}
-                                        onChange={(e) => setEndDate(e.target.value)}
-                                        className="border rounded p-1 bg-card-bg"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="relative flex items-center justify-center gap-[12px] m-auto rounded 
-                                                                            h-[30px] w-[75%] py-6 hover:scale-[1.03] mt-2.5">
-                                <div className="absolute top-0 mt-2 bg-card-bg p-2 rounded shadow-lg z-10">
-                                    <select
-                                        className="border rounded p-1 w-full"
-                                        value={selectedPaymentMethod}
-                                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                                    >
-                                        <option value="">Select Payment Method</option>
-                                        {paymentOptions.map((method, index) => (
-                                            <option key={index} value={method} className="text-center">
-                                                {method}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div className="relative flex items-center justify-center gap-[12px] bg-card-bg m-auto rounded 
-                                                                            h-[10px] w-[75%] py-4 hover:scale-[1.03] mt-5 mb-3">
-                                <button onClick={resetFilter} className="absolute inset-0 flex items-center justify-center
-                                                                                                             w-full h-full">
-                                    Reset All Filters
-                                </button>
+                    <div className="absolute top-full mt-2 bg-primary rounded drop-shadow w-[260%] z-10 pt-4 pb-4 px-4 space-y-4">
+                        {/* Time Range Filter */}
+                        <div className="flex flex-col items-center gap-2 bg-card-bg p-2 rounded shadow-lg">
+                            <div className="flex gap-2">
+                                <input
+                                    type="time"
+                                    placeholder="Start Time"
+                                    value={startTime}
+                                    onChange={(e) => setStartTime(e.target.value)}
+                                    className="border rounded p-1 text-center bg-white w-32"
+                                />
+                                <span className="self-center">to</span>
+                                <input
+                                    type="time"
+                                    placeholder="End Time"
+                                    value={endTime}
+                                    onChange={(e) => setEndTime(e.target.value)}
+                                    className="border rounded p-1 text-center bg-white w-32"
+                                />
                             </div>
                         </div>
-                    )}
+
+                        {/* Date Range Filter */}
+                        <div className="flex flex-col items-center gap-2 bg-card-bg p-2 rounded shadow-lg">
+                            <div className="flex gap-2 justify-center">
+                                <input
+                                    type="date"
+                                    placeholder="Start Date"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                    className="border rounded p-1 bg-white w-36"
+                                />
+                                <span className="self-center">to</span>
+                                <input
+                                    type="date"
+                                    placeholder="End Date"
+                                    value={endDate}
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                    className="border rounded p-1 bg-white w-36"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Payment Method Filter */}
+                        <div className="flex justify-center bg-card-bg p-2 rounded shadow-lg">
+                            <select
+                                className="border rounded p-2 w-72 text-center h-10"
+                                value={selectedPaymentMethod}
+                                onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                            >
+                                <option value="">Select Payment Method</option>
+                                {paymentOptions.map((method, index) => (
+                                    <option key={index} value={method} className="text-center">
+                                        {method}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Reset Filters Button */}
+                        <div className="flex justify-center bg-card-bg p-2 rounded shadow-lg mb-0">
+                            <button
+                                onClick={resetFilter}
+                                className="text-sm font-medium text-center bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                            >
+                                Reset All Filters
+                            </button>
+                        </div>
+                    </div>
+                )}
                 </div>
                 
                 {/* searchbox */}
