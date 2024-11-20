@@ -26,8 +26,10 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ poolData, onFilterChange })
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+    const [selectedRideshareOption, setSelectedRideshareOption] = useState("");
 
     const paymentOptions = Array.from(new Set(poolData.flatMap(obj => obj.paymentMethods)));
+    const rideshareOptions = Array.from(new Set(poolData.flatMap(obj => obj.vehicleType)));
 
     function toggleFilter() {
         showFilter(filter => !filter);
@@ -40,6 +42,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ poolData, onFilterChange })
         setStartDate("");
         setEndDate("");
         setSelectedPaymentMethod("");
+        setSelectedRideshareOption("");
     }
 
     const parseTime = (time: string): number => {
@@ -78,17 +81,21 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ poolData, onFilterChange })
 
             const matchesPayment =
                 selectedPaymentMethod === "" || p.paymentMethods.includes(selectedPaymentMethod);
-
-            return matchesSearchTerm && matchesTime && matchesDate && matchesPayment;
+            
+            const matchesRideshare =
+                selectedRideshareOption === "" || 
+                p.vehicleType.toLowerCase() === selectedRideshareOption.toLowerCase();
+    
+            return matchesSearchTerm && matchesTime && matchesDate && matchesPayment && matchesRideshare;
         });
 
         const displayData =
-            searchTerm || startTime || endTime || startDate || endDate || selectedPaymentMethod
+            searchTerm || startTime || endTime || startDate || endDate || selectedPaymentMethod || selectedRideshareOption
                 ? searchData
                 : poolData;
 
         onFilterChange(displayData);
-    }, [searchTerm, startTime, endTime, startDate, endDate, selectedPaymentMethod, poolData]);
+    }, [searchTerm, startTime, endTime, startDate, endDate, selectedPaymentMethod, selectedRideshareOption, poolData]);
 
     return (
         <div className="mt-[20px] flex justify-center space-x-1 items-center h-10 relative space-x-3">
@@ -147,6 +154,21 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ poolData, onFilterChange })
                         >
                             <option value="">Select Payment Method</option>
                             {paymentOptions.map((method, index) => (
+                                <option key={index} value={method} className="text-center">
+                                    {method}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    
+                    <div className="flex justify-center bg-card-bg p-2 rounded shadow-lg">
+                        <select
+                            className="border rounded p-2 w-72 text-center h-10"
+                            value={selectedRideshareOption}
+                            onChange={(e) => setSelectedRideshareOption(e.target.value)}
+                        >
+                            <option value="">Select Rideshare Service</option>
+                            {rideshareOptions.map((method, index) => (
                                 <option key={index} value={method} className="text-center">
                                     {method}
                                 </option>
