@@ -156,6 +156,8 @@ export default function CarpoolCard (props: any){
     }
 
     return(
-        carpoolCard
+        <div onClick={props.onClick}>
+            {carpoolCard}
+        </div>
     );
 }

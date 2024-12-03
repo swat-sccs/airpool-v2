@@ -2,6 +2,7 @@
 import AirpoolDropdown from "@/components/AirpoolDropdown";
 import CalendarView from "@/components/CalendarView'";
 import CarpoolCard from "@/components/CarpoolCard";
+import CarpoolCardPopup from "@/components/CarpoolCardPopup";
 import SCCSBox from "@/components/SCCSBox";
 import SearchFilter from "@/components/SearchFilter";
 import { useState } from "react";
@@ -66,6 +67,14 @@ export default function Pools(){
 
     const [displayTypeIndex, setDisplayTypeIndex] = useState(0);
     const [displayData, setDisplayData] = useState(poolData);
+    
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [selectedPool, setSelectedPool] = useState<typeof poolData[0] | null>(null);
+
+    const handleCardClick = (pool: typeof poolData[0]) => {
+        setSelectedPool(pool);
+        setIsPopupOpen(true);
+    }
 
     function toggleDisplayType(){
         setDisplayTypeIndex((displayTypeIndex + 1) % displayTypes.length);
@@ -94,6 +103,7 @@ export default function Pools(){
                                 time={p.time} 
                                 date={p.date} 
                                 displayType={displayTypes[displayTypeIndex]} 
+                                onClick={() => handleCardClick(p)}
                         />
                     })
                 ) : (
@@ -105,6 +115,12 @@ export default function Pools(){
                 )
             }
             </div>
+            <CarpoolCardPopup 
+                isOpen={isPopupOpen} 
+                onClose={() => setIsPopupOpen(false)}
+                pool={selectedPool}
+            >
+            </CarpoolCardPopup>
         </>
     )
 }
