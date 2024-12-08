@@ -2,7 +2,7 @@
 import CalendarView from "@/components/CalendarView";
 import CarpoolCard from "@/components/CarpoolCard";
 import SCCSBox from "@/components/SCCSBox";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 enum DisplayMode {
     List,
@@ -12,12 +12,24 @@ enum DisplayMode {
 
 export default function PoolResults(props: any){
     const [displayMode, setDisplayMode] = useState(DisplayMode.List);
-
-    const switch_view_button_class = "bg-alt-blue hover:bg-deep-blue w-[27vw] h-[30px] text-center text-white leading-[30px] scale-100 hover:scale-[1.01]";
-    const view = 1;
+    const [isSmallScreen, setIsSmallScreen] = useState(true);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+    
+        const updateScreenSize = () => setIsSmallScreen(mediaQuery.matches);
+    
+        // Initial check
+        updateScreenSize();
+    
+        // Listen for changes
+        mediaQuery.addEventListener('change', updateScreenSize);
+    
+        // Cleanup listener on component unmount
+        return () => mediaQuery.removeEventListener('change', updateScreenSize);
+      }, []);    
 
     let poolList;
-    if (displayMode == DisplayMode.List){
+    if (displayMode == DisplayMode.List || (displayMode == DisplayMode.Calendar && isSmallScreen)){
         poolList = (    <div className="flex flex-wrap items-center flex-col">
                         {
                             props.pools.map(function(p: any){
@@ -35,15 +47,26 @@ export default function PoolResults(props: any){
                         }
                         </div>);
     }
-    else if (displayMode == DisplayMode.Calendar){
+    else if (displayMode == DisplayMode.Calendar && !isSmallScreen){
         poolList = <CalendarView pools={props.pools}/>
     }
 
+    const switch_view_button_class = "bg-alt-blue hover:bg-deep-blue h-[30px] text-center text-white leading-[30px] scale-100 hover:scale-[1.01]";
+    let modeSwitchBar = isSmallScreen ? 
+        (<>
+            <div className={switch_view_button_class + " w-[40.5vw] rounded-[15px_0px_0px_15px]"} onClick={() => setDisplayMode(DisplayMode.List)}>List</div>
+            <div className={switch_view_button_class + " w-[40.5vw] rounded-[0px_15px_15px_0px]"} onClick={() => setDisplayMode(DisplayMode.Calendar)}>Grid</div>
+        </>)
+        : 
+        (<>
+            <div className={switch_view_button_class + " w-[27vw] rounded-[15px_0px_0px_15px]"} onClick={() => setDisplayMode(DisplayMode.List)}>List</div>
+            <div className={switch_view_button_class + " w-[27vw]"} onClick={() => setDisplayMode(DisplayMode.Grid)}>Grid</div>
+            <div className={switch_view_button_class + " w-[27vw] rounded-[0px_15px_15px_0px]"} onClick={() => setDisplayMode(DisplayMode.Calendar)}>Calendar</div>
+        </>)
+
     return  <>  
             <div className="flex flex-row justify-center gap-[3px]">
-                <div className={switch_view_button_class + " rounded-[15px_0px_0px_15px]"} onClick={() => setDisplayMode(DisplayMode.List)}>List</div>
-                <div className={switch_view_button_class} onClick={() => setDisplayMode(DisplayMode.Grid)}>Grid</div>
-                <div className={switch_view_button_class + " rounded-[0px_15px_15px_0px]"} onClick={() => setDisplayMode(DisplayMode.Calendar)}>Calendar</div>
+                {modeSwitchBar}
             </div>
             <div className="mt-[40px]">{poolList}</div>
             </>
