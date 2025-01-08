@@ -1,14 +1,58 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// All of these are placeholders and not final, but the point is that the pendingcarpool table should have the same attributes as the normal carpool.
 
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-model shouldbehere{
+
+model Carpool {
   id Int @id @default(autoincrement())
   name String @db.VarChar(255)
+  destination String @db.VarChar(255)
+  meetingPlace String @db.VarChar(255)
+  meetingTime DateTime 
+  availableSeats Int
+  transportationType TransportationType
+  acceptsCash Boolean @default(true)
+  acceptsVenmo Boolean @default(true)
+  acceptsZelle Boolean @default(true)
+  acceptsApplePay Boolean @default(true)
+  meetingInstructions String?
+  message String?
+  students User[]
+}
+
+model PendingCarpool {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  destination String @db.VarChar(255)
+  meetingPlace String @db.VarChar(255)
+  meetingTime DateTime 
+  availableSeats Int
+  transportationType TransportationType
+  acceptsCash Boolean @default(true)
+  acceptsVenmo Boolean @default(true)
+  acceptsZelle Boolean @default(true)
+  acceptsApplePay Boolean @default(true)
+  meetingInstructions String?
+  message String?
+  students User[]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  studentId Int
+  carpools Carpool[]
+}
+
+enum TransportationType {
+    PERSONAL_CAR
+    UBER
+    LYFT
+    TAXI
 }
