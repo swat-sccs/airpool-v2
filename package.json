@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
-    "@types/node": "22.8.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "18.3.1",
     "autoprefixer": "^10.4.20",
@@ -27,9 +26,14 @@
     "react-responsive": "^10.0.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.14",
+    "text-moderate": "^1.0.7",
     "typescript": "5.6.3"
   },
   "devDependencies": {
+    "@types/estree": "^1.0.6",
+    "@types/json-schema": "^7.0.15",
+    "@types/json5": "^0.0.30",
+    "@types/node": "^22.10.5",
     "tailwindcss-content-visibility": "^1.0.0"
   }
 }
