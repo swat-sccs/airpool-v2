@@ -12,18 +12,26 @@ export default function Page(){
         'use server'
         const inData = Object.fromEntries(formData);
         const prisma = new PrismaClient({});
-    
-        console.log("test");
+        /*
+            Date Month: <input type="text" id="dateMonth" name="dateMonth" className="w-[200px]"></input>
+            Date Day: <input type="text" id="dateDay" name="dateDay" className="w-[200px]"></input>
+            Date Year: <input type="text" id="dateYear" name="dateYear" className="w-[200px]"></input>
+            Date Hour: <input type="text" id="dateHour" name="dateHour" className="w-[200px]"></input>
+            Date Minute: <input type="text" id="dateMinute" name="dateMinute" className="w-[200px]"></input>
+            Date AM/PM: <input type="text" id="dateAMPM" name="dateAMPM" className="w-[200px]"></input>
+        */
+        console.log("test"); //logs in docker logs
         try{
             const data = {
                 destination: inData.destination,
                 meetingPlace: inData.meetingLocation,
-                dateMonth: inData.dateMonth,
-                dateDay: inData.dateDay,
-                dateYear: inData.dateYear,
-                dateHour: inData.dateHour,
-                dateMinute: inData.dateMinute,
-                dateAMPM: inData.dateAMPM,
+                date: inData.date, //2025-02-14T17:04
+                // dateMonth: inData.dateMonth,
+                // dateDay: inData.dateDay,
+                // dateYear: inData.dateYear,
+                // dateHour: inData.dateHour,
+                // dateMinute: inData.dateMinute,
+                // dateAMPM: inData.dateAMPM,
                 seatsAvailable: inData.seatsAvailable,
                 vehicleType: inData.vehicleType,
                 takesCash: inData.takesCash,
@@ -33,16 +41,17 @@ export default function Page(){
                 meetupDirections: inData.meetupDirections,
                 description: inData.description,
             }
+            console.log(data.date)
             // create carpool
-            var hour = parseInt(data.dateHour.toString()); // Date hours start at 0
-            var month = parseInt(data.dateMonth.toString()) - 1; // Date months start at 0
-            var amPm = data.dateAMPM.toString().toLowerCase();
-            if (amPm == "pm" && hour < 12){
-                hour += 12;
-            }
-            if (amPm == "am" && hour == 12){ // midnight
-                hour = 0;
-            }
+            // var hour = parseInt(data.dateHour.toString()); // Date hours start at 0
+            // var month = parseInt(data.dateMonth.toString()) - 1; // Date months start at 0
+            // var amPm = data.dateAMPM.toString().toLowerCase();
+            // if (amPm == "pm" && hour < 12){
+            //     hour += 12;
+            // }
+            // if (amPm == "am" && hour == 12){ // midnight
+            //     hour = 0;
+            // }
             var car = data.vehicleType.toString();
             if (car.toLowerCase() == "car"){
                 car = "PERSONAL_CAR";
@@ -53,7 +62,8 @@ export default function Page(){
                     name: 'Name',
                     destination: data.destination.toString(),
                     meetingPlace: data.meetingPlace.toString(),
-                    meetingTime: new Date(parseInt(data.dateYear.toString()), month, parseInt(data.dateDay.toString()), hour, parseInt(data.dateMinute.toString()), 0),
+                    meetingTime: new Date(data.date.toString()),
+                    //meetingTime: new Date(parseInt(data.dateYear.toString()), month, parseInt(data.dateDay.toString()), hour, parseInt(data.dateMinute.toString()), 0),
                     availableSeats: parseInt(data.seatsAvailable.toString()),
                     transportationType: TransportationType[car.toUpperCase() as keyof typeof TransportationType],
                     acceptsVenmo: Boolean(data.takesVenmo),
@@ -68,6 +78,8 @@ export default function Page(){
 
                 }
             })
+
+            console.log("got this far!");
         }
         catch (error: any){
             console.log("error");
@@ -80,12 +92,7 @@ export default function Page(){
         <div className="flex flex-col">
             Destination: <input type="text" id="destination" name="destination" className="w-[200px]"></input>
             Meeting Place: <input type="text" id="meetingLocation" name="meetingLocation" className="w-[200px]"></input>
-            Date Month: <input type="text" id="dateMonth" name="dateMonth" className="w-[200px]"></input>
-            Date Day: <input type="text" id="dateDay" name="dateDay" className="w-[200px]"></input>
-            Date Year: <input type="text" id="dateYear" name="dateYear" className="w-[200px]"></input>
-            Date Hour: <input type="text" id="dateHour" name="dateHour" className="w-[200px]"></input>
-            Date Minute: <input type="text" id="dateMinute" name="dateMinute" className="w-[200px]"></input>
-            Date AM/PM: <input type="text" id="dateAMPM" name="dateAMPM" className="w-[200px]"></input>
+            Date: <input type="datetime-local" id = "date" name = "date" className="w-[200px]"></input>
             Seats Available: <input type="text" id="seatsAvailable" name="seatsAvailable" className="w-[200px]"></input>
             vehicleType: <input type="text" id="vehicleType" name="vehicleType" className="w-[200px]"></input>
             Cash: <input type="checkbox" id="takesCash" name="takesCash"></input>

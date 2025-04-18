@@ -1,5 +1,13 @@
 version: '3.4'
 services:
+  # prisma-studio:
+  #   image: prismagraphql/prisma-studio
+  #   ports:
+  #     - "5555:5555"
+  #   environment:
+  #     DATABASE_URL: mysql://root:S3cret@db:3306/airpool_db
+  #   depends_on:
+  #     - db
   airpool:
     build:
       context: .
