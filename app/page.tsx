@@ -37,9 +37,9 @@ export default async function Home() {
       })
 
   const data = [""];
-  data.push(poolsOrdered[0].destination)
-  data.push(poolsOrdered[1].destination)
-  data.push(poolsOrdered[2].destination)
+  for (let i = 0; i < poolsOrdered.length; i++){
+    data.push(poolsOrdered[i].destination)
+  }
 
   return (
     <>
