@@ -1,8 +1,10 @@
 FROM node:alpine
 ENV NODE_ENV=development
 WORKDIR /usr/src/app
+COPY . .
 EXPOSE 3000
-RUN chown -R node /usr/src/app
+RUN rm -rf node_modules
+RUN chown -R node:node /usr/src/app
 USER node
 RUN npm install
 RUN npx prisma generate
