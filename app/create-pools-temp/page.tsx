@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { PrismaClient, TransportationType} from '@prisma/client'
-import { redirect } from "next/dist/server/api-utils";
+
 
 export default function Page(){
 
@@ -9,29 +8,16 @@ export default function Page(){
         // here, I have already set up the extraction of the form data
         // each of the checkbox variables set to undefined if the checkbox is
         // not checked and set to the string "on" if the checkbox is checked
-        'use server'
+        'use server';
         const inData = Object.fromEntries(formData);
         const prisma = new PrismaClient({});
-        /*
-            Date Month: <input type="text" id="dateMonth" name="dateMonth" className="w-[200px]"></input>
-            Date Day: <input type="text" id="dateDay" name="dateDay" className="w-[200px]"></input>
-            Date Year: <input type="text" id="dateYear" name="dateYear" className="w-[200px]"></input>
-            Date Hour: <input type="text" id="dateHour" name="dateHour" className="w-[200px]"></input>
-            Date Minute: <input type="text" id="dateMinute" name="dateMinute" className="w-[200px]"></input>
-            Date AM/PM: <input type="text" id="dateAMPM" name="dateAMPM" className="w-[200px]"></input>
-        */
+
         console.log("test"); //logs in docker logs
         try{
             const data = {
                 destination: inData.destination,
                 meetingPlace: inData.meetingLocation,
                 date: inData.date, //2025-02-14T17:04
-                // dateMonth: inData.dateMonth,
-                // dateDay: inData.dateDay,
-                // dateYear: inData.dateYear,
-                // dateHour: inData.dateHour,
-                // dateMinute: inData.dateMinute,
-                // dateAMPM: inData.dateAMPM,
                 seatsAvailable: inData.seatsAvailable,
                 vehicleType: inData.vehicleType,
                 takesCash: inData.takesCash,
@@ -42,20 +28,6 @@ export default function Page(){
                 description: inData.description,
             }
             console.log(data.date)
-            // create carpool
-            // var hour = parseInt(data.dateHour.toString()); // Date hours start at 0
-            // var month = parseInt(data.dateMonth.toString()) - 1; // Date months start at 0
-            // var amPm = data.dateAMPM.toString().toLowerCase();
-            // if (amPm == "pm" && hour < 12){
-            //     hour += 12;
-            // }
-            // if (amPm == "am" && hour == 12){ // midnight
-            //     hour = 0;
-            // }
-            var car = data.vehicleType.toString();
-            if (car.toLowerCase() == "car"){
-                car = "PERSONAL_CAR";
-            }
 
             const carpool = await prisma.carpool.create({
                 data: {
@@ -65,7 +37,7 @@ export default function Page(){
                     meetingTime: new Date(data.date.toString()),
                     //meetingTime: new Date(parseInt(data.dateYear.toString()), month, parseInt(data.dateDay.toString()), hour, parseInt(data.dateMinute.toString()), 0),
                     availableSeats: parseInt(data.seatsAvailable.toString()),
-                    transportationType: TransportationType[car.toUpperCase() as keyof typeof TransportationType],
+                    transportationType: TransportationType[data.vehicleType as keyof typeof TransportationType],
                     acceptsVenmo: Boolean(data.takesVenmo),
                     acceptsApplePay: Boolean(data.takesApplePay),
                     acceptsZelle: Boolean(data.takesZelle),
@@ -75,7 +47,7 @@ export default function Page(){
                     students: {
                         create: [{name: 'Name', studentId: 123456789}] // TODO: replace 'Name' and 'StudentID' with actual values
                     }
-
+                    
                 }
             })
 
@@ -94,7 +66,12 @@ export default function Page(){
             Meeting Place: <input type="text" id="meetingLocation" name="meetingLocation" className="w-[200px]"></input>
             Date: <input type="datetime-local" id = "date" name = "date" className="w-[200px]"></input>
             Seats Available: <input type="text" id="seatsAvailable" name="seatsAvailable" className="w-[200px]"></input>
-            vehicleType: <input type="text" id="vehicleType" name="vehicleType" className="w-[200px]"></input>
+            vehicleType: <select id="vehicleType" name="vehicleType" className="w-[200px]">
+                <option>PERSONAL_CAR</option>
+                <option>UBER</option>
+                <option>LYFT</option>
+                <option>TAXI</option>
+            </select>
             Cash: <input type="checkbox" id="takesCash" name="takesCash"></input>
             Venmo: <input type="checkbox" id="takesVenmo" name="takesVenmo"></input>
             Apple Pay: <input type="checkbox" id="takesApplePay" name="takesApplePay"></input>
