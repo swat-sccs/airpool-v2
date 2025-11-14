@@ -1,8 +1,8 @@
-FROM node:lts-bookworm
+FROM node:alpine
 ENV NODE_ENV=development
 WORKDIR /usr/src/app
 EXPOSE 3000
 RUN chown -R node /usr/src/app
-RUN apt update 2> /dev/null
-RUN apt install -y netcat-openbsd 2> /dev/null
 USER node
+RUN npm install
+RUN npx prisma generate
