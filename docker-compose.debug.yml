@@ -1,5 +1,13 @@
 version: '3.4'
 services:
+  # prisma-studio:
+  #   image: prismagraphql/prisma-studio
+  #   ports:
+  #     - "5555:5555"
+  #   environment:
+  #     DATABASE_URL: mysql://root:S3cret@db:3306/airpool_db
+  #   depends_on:
+  #     - db
   airpool:
     build:
       context: .
@@ -13,8 +21,8 @@ services:
     ports:
       - 3000:3000
       - 9229:9229
-      - 5555:5555
-    command: /bin/sh -c "npm install --silent && timeout 22 sh -c 'until nc -z $0 $1; do sleep 1; done' db 3306 && npx prisma generate &&  npm run dev"
+      - 5555:5555      
+    command: /bin/sh -c "npm install --silent && timeout 22 sh -c 'until nc -z $0 $1; do sleep 1; done' db 3306 && npx prisma generate && npx prisma migrate dev --name init && npm run dev"
   db:
     image: mariadb:10.7
     ports:
