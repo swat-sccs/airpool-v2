@@ -9,8 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "prisma": "^5.21.1",
-    "@prisma/client": "^5.21.1",
+    "@prisma/client": "^5.22.0",
     "@types/node": "22.8.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "18.3.1",
@@ -21,6 +20,7 @@
     "next": "^15.0.1",
     "next-auth": "^4.24.10",
     "postcss": "^8.4.47",
+    "prisma": "^5.21.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
@@ -29,7 +29,7 @@
     "tailwindcss": "^3.4.14",
     "typescript": "5.6.3"
   },
-  "devDependencies": {    
+  "devDependencies": {
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
