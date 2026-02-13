@@ -3,7 +3,7 @@ import SCCSFooter from '@/components/SCCSFooter'
 import PoolCardGrouping from '@/components/PoolCardGrouping'
 import SCCSHeader from '@/components/SCCSHeader'
 import Link from 'next/link'
-import { PrismaClient, TransportationType} from '@prisma/client'
+import { PrismaClient} from '@prisma/client'
 
 const displayTypes = ["list", "grid"];
 
