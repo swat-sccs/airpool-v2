@@ -1,6 +1,7 @@
 version: '3.4'
 services:
   airpool:
+    container_name: airpool-frontend
     image: airpool
     build:
       context: .
@@ -11,11 +12,14 @@ services:
       NODE_ENV: production
       DOMAIN: https://airpool.swarthmore.edu/
       DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}
+    depends_on:
+      - db
     ports:
       - "${INTERNAL_PORT}:3000"
     command: sh -c "npm run build && timeout 22 sh -c 'until nc -z $0 $1; do sleep 1; done' db 3306 && npx prisma migrate deploy && npm start "
 
   db:
+    container_name: airpool-db
     image: mariadb:10.7
     volumes:
       - ./data:/var/lib/mysql
