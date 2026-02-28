@@ -20,7 +20,7 @@ export default async function Home() {
   );
 
   const createPoolButton = (
-    <Link href="/create-pools-temp">
+    <Link href="/create-pools">
       <button className={mainButtonsClass}> 
         Create Pool
       </button>
