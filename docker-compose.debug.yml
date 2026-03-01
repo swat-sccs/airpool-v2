@@ -18,6 +18,13 @@ services:
       NODE_ENV: development
       DOMAIN: http://127.0.0.1:3000/
       DATABASE_URL: mysql://root:S3cret@db:3306/airpool_db
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - 3000:3000
       - 9229:9229
@@ -26,9 +33,14 @@ services:
   db:
     image: mariadb:10.7
     ports:
-      - 3306:3306
+      - 3306:3306p
     environment:
       - MYSQL_ROOT_PASSWORD=S3cret
       - MYSQL_DATABASE=airpool_db
-
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
