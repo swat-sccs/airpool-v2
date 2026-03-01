@@ -17,13 +17,9 @@ model Carpool {
   meetingPlace String @db.VarChar(255)
   meetingTime DateTime 
   availableSeats Int
-  transportationType TransportationType
-  acceptsCash Boolean @default(true)
-  acceptsVenmo Boolean @default(true)
-  acceptsZelle Boolean @default(true)
-  acceptsApplePay Boolean @default(true)
-  meetingInstructions String?
-  message String?
+  transportationType String
+  paymentType String
+  meetingInstructions String
   students User[]
 }
 
@@ -34,9 +30,3 @@ model User {
   carpools Carpool[]
 }
 
-enum TransportationType {
-    PERSONAL_CAR
-    UBER
-    LYFT
-    TAXI
-}

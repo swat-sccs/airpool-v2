@@ -3,7 +3,7 @@ import SCCSFooter from '@/components/SCCSFooter'
 import PoolCardGrouping from '@/components/PoolCardGrouping'
 import SCCSHeader from '@/components/SCCSHeader'
 import Link from 'next/link'
-import { PrismaClient, TransportationType} from '@prisma/client'
+import { PrismaClient} from '@prisma/client'
 
 const displayTypes = ["list", "grid"];
 
@@ -20,7 +20,7 @@ export default async function Home() {
   );
 
   const createPoolButton = (
-    <Link href="/create-pools-temp">
+    <Link href="/create-pools">
       <button className={mainButtonsClass}> 
         Create Pool
       </button>

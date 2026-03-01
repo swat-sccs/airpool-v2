@@ -24,11 +24,11 @@ export default function RootLayout({
     <NextAuthProvider>
     <html className={raleway.variable}>
       <body className="leading bg-page-bg">
-        <main>
+          <main>
           <SCCSHeader/>
           {children}
         </main>
-        <SCCSFooter />
+        <SCCSFooter />  
       </body>
     </html>
     </NextAuthProvider>
