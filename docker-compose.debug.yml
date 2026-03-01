@@ -33,7 +33,7 @@ services:
   db:
     image: mariadb:10.7
     ports:
-      - 3306:3306p
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=S3cret
       - MYSQL_DATABASE=airpool_db
